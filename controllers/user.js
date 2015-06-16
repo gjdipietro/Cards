@@ -106,7 +106,7 @@ exports.postRegister = function (req, res) {
             req.flash("error", {msg: "An Account with that email address already exists."});
             return res.redirect('/i/register');
         }
-
+/*
         var transporter = nodemailer.createTransport({
             service: 'Gmail',
             auth: {
@@ -125,7 +125,7 @@ exports.postRegister = function (req, res) {
             req.flash('success', { msg: 'Success! Your password has been changed.' });
             done(err);
         });
-
+*/
 
 
         user.save(function (err) {
