@@ -1,0 +1,35 @@
+<% include ../partials/head %>
+
+<body>
+    <% include ../partials/global_nav %>
+
+    <div class="container">
+        <h1><%= page_title %></h1>
+        
+        <form accept-charset="UTF-8" method="post">
+        
+			<fieldset>
+				<label for="email">Email</label>
+				<input type="email" name="email" id="email" placeholder="No Spam. Ever." tabindex="1" autocorrect="off" autocapitalize="off" autofocus="true">
+			</fieldset>
+
+			<fieldset>
+				<label for="username">Username</label>
+				<input type="username" name="username" id="username" value="" tabindex="2" autocorrect="off" >
+			</fieldset>
+
+			<fieldset>
+				<label for="password">Password</label>
+				<input type="password" name="password" id="password" value="" tabindex="3" autocorrect="off">
+			</fieldset>
+
+			<input class="button" type="submit" value="Register" tabindex="4">
+
+		</form>
+    </div>
+
+    <script src="jquery/dist/jquery.js"></script>
+    <script src="bootstrap/dist/js/bootstrap.js"></script>
+
+</body>
+</html>

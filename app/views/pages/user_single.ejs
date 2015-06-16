@@ -1,0 +1,42 @@
+<% include ../partials/head %>
+
+<body>
+    <% include ../partials/global_nav %>
+
+    <div class="container">
+        <br><br>
+        
+        <img src="<%= user.gravatar(120) %>" />
+
+        <h1><%= page_title %></h1>
+        <p><%= user.profile.bio %><p>
+        <p><%= user.email %><p>
+        <p><%= user.created %><p>
+        
+        <h2>Posted Cards</h2>
+        <% if(cards.length === 0) { %>
+        <div> Aint got nothing to show ya</div>
+        <% } %>
+        
+        <% if(cards.length >  0) { %>
+        <ul>
+            <%  for (var i = 0; i < cards.length; i++) {    %>
+                <li>
+                    <img src="<%= cards[i].image %>" width="200px" height="150px"  />
+                    <br>
+                    <a href="/cards/<%= cards[i]._id %>">
+                        <%= cards[i].title %>
+                    </a>
+                    <br><br>
+                </li>
+            <%  }   %>
+        </ul>
+        <%  }   %>
+
+    </div>
+
+    <script src="jquery/dist/jquery.js"></script>
+    <script src="bootstrap/dist/js/bootstrap.js"></script>
+
+</body>
+</html>

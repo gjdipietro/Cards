@@ -1,0 +1,35 @@
+
+
+<% include ../partials/head %>
+
+<body>
+    <% include ../partials/global_nav %>
+
+
+    <div class="container">
+        <h1><%= page_title %></h1>
+        <div>Posted by <a href="/<%=user.username %>"><%= user.username %></a></div>
+        
+        <div><img src="<%=card.image %>"/></div>
+        <div><%=card.description %></div>
+        <div><%=card.date.created %></div>
+
+        <br><br><br>
+        <form>
+            <label for="likes">Likes</label>
+            <input type="submit" value="<%=card.attr.likes %>" id="likes" />
+        </form>
+        <br><br><br><br>
+        
+        <% if(myCard) { %>
+        <form  method="post" action="cards/<%=card._id %>/delete">
+            <input type="submit" value="Delete Card"  />
+        </form>
+        <% } %>
+    </div>
+
+    <script src="jquery/dist/jquery.js"></script>
+    <script src="bootstrap/dist/js/bootstrap.js"></script>
+
+</body>
+</html>

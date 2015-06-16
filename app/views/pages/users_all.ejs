@@ -1,0 +1,29 @@
+<% include ../partials/head %>
+
+<body>
+    <% include ../partials/global_nav %>
+
+    <div class="container">
+        <h1><%= page_title %></h1>
+
+        <% if(users.length == 0) { %>
+        <div> Aint got nothing to show ya</div>
+        <% } %>
+        
+        <ul>
+			<%	for (var i = 0; i < users.length; i++) {	%>
+				<li>
+					<a href="/<%= users[i].username %>/">
+                        <%= users[i].username %> 
+                    </a>
+                    (<%= users[i]._id %>) <br><br>
+				</li>
+			<%	}	%>
+		</ul>
+    </div>
+
+    <script src="jquery/dist/jquery.js"></script>
+    <script src="bootstrap/dist/js/bootstrap.js"></script>
+
+</body>
+</html>

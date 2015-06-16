@@ -1,0 +1,35 @@
+<% include ../partials/head %>
+
+<body>
+    <% include ../partials/global_nav %>
+
+    <style>
+    	fieldset label {display: block;}
+    </style>
+    <div class="container">
+        <h1><%= page_title %></h1>
+        <form  accept-charset="UTF-8" method="post">
+
+        	<!-- Sign in with: <br>
+        	<a href="/auth/facebook">Facebook</a>
+        	<a href="/auth/twitter">Twitter</a>
+			<br><br> -->
+			
+			<fieldset>
+				<label for="username">Username or Email</label>
+				<input type="text" name="username" id="username" value="" tabindex="1" autocorrect="off" autocapitalize="off" autofocus="true">
+			</fieldset>
+
+			<fieldset>
+				<label for="password">Password</label>
+				<input type="password" name="password" id="password" value="" tabindex="2">
+			</fieldset>
+			<br><br>
+			<input class="button" type="submit" value="Sign In" tabindex="3">
+
+		</form>
+    </div>
+
+
+</body>
+</html>
