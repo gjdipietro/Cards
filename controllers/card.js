@@ -79,7 +79,6 @@ exports.getCard = function (req, res) {
     });
 }
 
-
 exports.postDeleteCard = function (req, res) {
     Card.findById(req.params.card_id, function (err, card) {
         if(!req.user) {
@@ -101,7 +100,6 @@ exports.postDeleteCard = function (req, res) {
         }
     })
 };
-
 exports.postFavoriteCard = function (req, res) {
     Card.findById(req.params.card_id, function (err, card) {
         User.findById(req.user, function (err, user) {
