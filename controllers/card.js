@@ -19,7 +19,6 @@ exports.getPostCard = function (req, res) {
         page_title: "Post a card",
     });
 }
-
 exports.postCard = function (req, res) {
     var imgUrl, card;
     if (req.files.image && req.files.image.size < 200000) {
@@ -55,15 +54,14 @@ exports.getAllCards = function (req, res) {
         }
     });
 }
-
 exports.getCard = function (req, res) {
     Card.findById(req.params.card_id, function (err, card) {
         User.findById(card.user, function (err, user) {
-            var myCard = false;
+            var isMyCard = false;
+            var isFavorite = false;
             if (req.user) {
-                if ( card.user.equals(req.user._id) ) { 
-                    myCard = true;
-                }
+                isMyCard = card.user.equals(req.user._id);
+                isFavorite = req.user.favorites.indexOf(card._id) > -1;
             }
             if (!err) {
                 res.render("../views/pages/card_single", {
@@ -71,7 +69,8 @@ exports.getCard = function (req, res) {
                     page_title: card.title, 
                     card: card,
                     user: user,
-                    myCard: myCard
+                    isMyCard: isMyCard,
+                    isFavorite: isFavorite
                 }); 
             } else {
                 res.send(err);
@@ -79,6 +78,7 @@ exports.getCard = function (req, res) {
         });
     });
 }
+
 
 exports.postDeleteCard = function (req, res) {
     Card.findById(req.params.card_id, function (err, card) {
@@ -91,7 +91,7 @@ exports.postDeleteCard = function (req, res) {
                     if (err) {
                         res.send(err);
                     } else {               
-                        res.redirect("/u/"+req.user._id);
+                        res.redirect("/"+req.user.username);
                     }
                 });
             }
@@ -101,3 +101,25 @@ exports.postDeleteCard = function (req, res) {
         }
     })
 };
+
+exports.postFavoriteCard = function (req, res) {
+    Card.findById(req.params.card_id, function (err, card) {
+        User.findById(req.user, function (err, user) {
+            if (!err) {
+                card.attr.favorites += 1;
+                user.favorites.push(card._id);
+                card.save(function (err) {
+                    user.save(function (err) {
+                        if(!err) {
+                            res.redirect("/cards/"+card._id);
+                        }
+                    })  
+                });
+            }
+            else {
+                res.redirect("/cards/"+card._id);
+            }
+
+        });
+    });
+}

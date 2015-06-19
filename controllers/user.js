@@ -14,17 +14,16 @@ var Card = require("../app/models/cards");
 var User = require('../app/models/users');
 
 
-
-
+//Dealing with users profile
 exports.getUser = function (req, res) {
-    User.findOne({username: req.params.username}, function (err, foundUser) {
-        if(foundUser) {
-            Card.find({ user: foundUser._id }, function (err, cards) {
+    User.findOne({username: req.params.username}, function (err, currUser) {
+        if(currUser) {
+            Card.find({ user: currUser._id }, function (err, cards) {
                 if (!err) {
                     res.render("../views/pages/user_single", {
-                        doc_title: foundUser.username + ' \u00B7 ' + companyName, 
-                        page_title: foundUser.username, 
-                        user: foundUser,
+                        doc_title: currUser.username + ' \u00B7 ' + companyName, 
+                        page_title: currUser.username, 
+                        user: currUser,
                         cards: cards
                     }); 
                 } else {
@@ -34,8 +33,28 @@ exports.getUser = function (req, res) {
         } 
     });
 };
-
-
+exports.getUserFavorites = function (req, res) {
+    User.findOne({username: req.params.username}, function (err, currUser) {
+        console.log(currUser)
+        if(currUser) {
+            Card.find({ _id : { $in : currUser.favorites }  }, function (err, cards) {
+                if (!err) {
+                    res.render("../views/pages/user_single", {
+                        doc_title: currUser.username + ' \u00B7 ' + companyName, 
+                        page_title: currUser.username, 
+                        user: currUser,
+                        cards: cards
+                    }); 
+                } else {
+                     res.send(err);
+                }
+            }); 
+        } 
+    });
+};
+exports.getUserOrders = function (req, res) {
+    console.log("Orders");
+};
 exports.getAllUsers = function (req, res) {
     User.find(function (err, users) {
         if (!err) {
@@ -51,6 +70,8 @@ exports.getAllUsers = function (req, res) {
 };
 
 
+
+//Sign in and register
 exports.getSignin = function (req, res) {
     if (req.user) { 
         return res.redirect('/');
@@ -84,9 +105,6 @@ exports.postSignin = function (req, res, next) {
         });
     })(req, res, next);
 };
-
-
-
 exports.getRegister = function (req, res) {
     res.render("../views/pages/register", {
        doc_title: "Register In " + companyName,
@@ -94,19 +112,17 @@ exports.getRegister = function (req, res) {
     });
 };
 exports.postRegister = function (req, res) {
-    
     var user = new User({
         email : req.body.email,
         username : req.body.username,
         password: req.body.password,
     });
-
     User.findOne({ email: req.body.email }, function (err, existingUser) {
         if (existingUser) {
             req.flash("error", {msg: "An Account with that email address already exists."});
             return res.redirect('/i/register');
         }
-/*
+        /*
         var transporter = nodemailer.createTransport({
             service: 'Gmail',
             auth: {
@@ -125,9 +141,7 @@ exports.postRegister = function (req, res) {
             req.flash('success', { msg: 'Success! Your password has been changed.' });
             done(err);
         });
-*/
-
-
+        */
         user.save(function (err) {
             if (err) {
                 res.send(err);
@@ -139,9 +153,10 @@ exports.postRegister = function (req, res) {
         });
     });
 };
-
-
 exports.signout = function(req, res) {
     req.logout();
     res.redirect("/");
 };
+
+
+

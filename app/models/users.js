@@ -37,12 +37,13 @@ var userSchema = new Schema({
         type: Boolean,
         default: false
     },
-    cards: {
-        type: Array,
-    },
     favorites: {
         type: Array,
+    },
+    orders: {
+        type: Array,
     }
+
 });
 
 

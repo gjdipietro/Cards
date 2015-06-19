@@ -1,40 +1,7 @@
-<style>
-	* {
-		box-sizing: border-box;
-	}
-
-	.layout_nav {
-		background:#EEE;
-		padding: 2em; 
-		border-bottom: 1px solid #DDD;
-	}
-	.layout_nav a {
-		text-decoration: none;
-		margin-right: 1em;
-		font-size: 1.15em;
-	}
-	a, a:visited, a:hover {
-		color:#F46353;
-		text-decoration: none;
-	}
-	a:hover {
-		text-decoration: underline;
-	}
-	.container {
-		width: 960px;
-		margin: 0 auto;
-	}
-	body {
-		background: #FFF;
-		margin: 0;
-	}
-</style>
-
-
 <header class="layout_nav">
     <div class="container">
     	<div class="clearfix">
-	    	<div style="float:right">
+	    	<div class="credentials">
 	    		<% if(auth_user) { %>
 		        	<a href="/<%= auth_user.username %>/"> 
 			        	<img src=" <%= auth_user.gravatar(24) %> ">

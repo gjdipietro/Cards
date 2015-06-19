@@ -48,6 +48,9 @@ router.route('/cards/:card_id/delete')
     .post(cardController.postDeleteCard);
 
 
+router.route("/:username/:card_id/favorite")
+    .post(cardController.postFavoriteCard);
+
 
 /*========================================
 USERS
@@ -57,6 +60,13 @@ router.route("/i/u/")
 
 router.route("/:username")
     .get(userController.getUser);
+
+router.route("/:username/favorites")
+    .get(userController.getUserFavorites);
+
+router.route("/:username/Orders")
+    .get(userController.getUserOrders);
+
 
 router.route("/i/register")
     .get(userController.getRegister)

@@ -26,9 +26,9 @@ var cardSchema = new Schema({
         price: {
             type: Number,
         },
-        likes: {
+        favorites: {
             type: Number,
-            default: "1"
+            default: "0"
         }
     },
     date: {

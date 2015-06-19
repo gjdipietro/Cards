@@ -1,0 +1,20 @@
+@mixin type-scale($scale, $map: $type-scale) {
+   $font-size: map-fetch($map, $scale font-size);
+   $base-lines: map-fetch($map, $scale base-lines);
+   @include adjust-font-size-to($font-size, $base-lines);
+}
+
+@function map-fetch($map, $keys) {
+   $key: nth($keys, 1);
+   $length: length($keys);
+   $value: map-get($map, $key);
+   @if ($length > 1) {
+      $rest: ();
+      @for $i from 2 through $length {
+         $rest: append($rest, nth($keys, $i))
+      }
+      @return map-fetch($value, $rest)
+   } @else {
+      @return $value;
+   }
+}

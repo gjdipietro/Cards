@@ -4,22 +4,28 @@
     <% include ../partials/global_nav %>
 
     <div class="container">
-        <br><br>
         
-        <img src="<%= user.gravatar(120) %>" />
-
-        <h1><%= page_title %></h1>
+        <div class="clearfix">
+            <img src="<%= user.gravatar(120) %>" style="float:left" />
+            <h1><%= page_title %></h1>
+            <p><%= user.email %><p>
+            <p><%= user.created %><p>
+        </div>
+        
         <p><%= user.profile.bio %><p>
-        <p><%= user.email %><p>
-        <p><%= user.created %><p>
         
+        <a href="/<%= user.username %>/">Posted</a> | 
+        <a href="/<%= user.username %>/Favorites">Favorites</a> | 
+        <a href="/<%= user.username %>/orders">Orders</a>
+        <hr>
+
         <h2>Posted Cards</h2>
         <% if(cards.length === 0) { %>
         <div> Aint got nothing to show ya</div>
         <% } %>
         
         <% if(cards.length >  0) { %>
-        <ul>
+        <ul class="clearfix cards">
             <%  for (var i = 0; i < cards.length; i++) {    %>
                 <li>
                     <img src="<%= cards[i].image %>" width="200px" height="150px"  />

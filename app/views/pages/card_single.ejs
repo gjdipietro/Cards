@@ -14,14 +14,22 @@
         <div><%=card.description %></div>
         <div><%=card.date.created %></div>
 
-        <br><br><br>
-        <form>
-            <label for="likes">Likes</label>
-            <input type="submit" value="<%=card.attr.likes %>" id="likes" />
-        </form>
-        <br><br><br><br>
+        <br>
         
-        <% if(myCard) { %>
+        <% if(!auth_user) { %>
+            <%=card.attr.favorites %> Favorites
+        <% } %>
+        <% if(auth_user) { %>
+        <form method="post" action="/<%=auth_user.username %>/<%=card._id %>/favorite">
+            <label for="favorites">Favs</label>
+            <input type="submit" value="<%=card.attr.favorites %>" id="favorites" />
+            <% if (isFavorite == true) { %> <span> You like it </span> <% } %>
+        </form>
+        <% } %>
+
+        <br><br><br>
+        
+        <% if(isMyCard) { %>
         <form  method="post" action="cards/<%=card._id %>/delete">
             <input type="submit" value="Delete Card"  />
         </form>
