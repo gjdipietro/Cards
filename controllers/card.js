@@ -106,8 +106,15 @@ exports.postFavoriteCard = function (req, res) {
     Card.findById(req.params.card_id, function (err, card) {
         User.findById(req.user, function (err, user) {
             if (!err) {
-                card.attr.favorites += 1;
-                user.favorites.push(card._id);
+                var isFavorite = req.user.favorites.indexOf(card._id) > -1;
+                if(isFavorite) {
+                    card.attr.favorites -= 1;
+                    user.favorites.splice(card._id);
+                }
+                else if (!isFavorite) {
+                    card.attr.favorites += 1;
+                    user.favorites.push(card._id);
+                }
                 card.save(function (err) {
                     user.save(function (err) {
                         if(!err) {
@@ -119,7 +126,6 @@ exports.postFavoriteCard = function (req, res) {
             else {
                 res.redirect("/cards/"+card._id);
             }
-
         });
     });
 }
