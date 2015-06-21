@@ -1,17 +1,17 @@
 'use strict';
 
 // Dependency
-var passport = require('../config/auth');
+var passport = require('../../config/auth');
 var crypto = require('crypto');
 var nodemailer = require('nodemailer');
-var secrets = require('../config/secrets');
+var secrets = require('../../config/secrets');
 var companyName = "Snail Cards";
 var tagline = "Greeting Cards that don't suck";
 
 
 // Models
-var Card = require("../app/models/cards");
-var User = require('../app/models/users');
+var Card = require("../models/cards");
+var User = require('../models/users');
 
 
 //Dealing with users profile
@@ -22,7 +22,8 @@ exports.getUser = function (req, res) {
                 if (!err) {
                     res.render("../views/pages/user_single", {
                         doc_title: currUser.username + ' \u00B7 ' + companyName, 
-                        page_title: currUser.username, 
+                        page_title: currUser.username,
+                        sub_title: "Posted Cards", 
                         user: currUser,
                         cards: cards
                     }); 
@@ -35,13 +36,13 @@ exports.getUser = function (req, res) {
 };
 exports.getUserFavorites = function (req, res) {
     User.findOne({username: req.params.username}, function (err, currUser) {
-        console.log(currUser)
         if(currUser) {
             Card.find({ _id : { $in : currUser.favorites }  }, function (err, cards) {
                 if (!err) {
                     res.render("../views/pages/user_single", {
                         doc_title: currUser.username + ' \u00B7 ' + companyName, 
                         page_title: currUser.username, 
+                        sub_title: "Favorites",
                         user: currUser,
                         cards: cards
                     }); 

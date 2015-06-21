@@ -16,8 +16,8 @@ express().use(multer());
 
 
 //Controllers
-var userController = require("../../controllers/user");
-var cardController = require("../../controllers/card");
+var userController = require("../controllers/user");
+var cardController = require("../controllers/card");
 
 
 // Routes

@@ -8,8 +8,8 @@ var tagline = "Greeting Cards that don't suck";
 
 
 // Models
-var Card = require("../app/models/cards");
-var User = require('../app/models/users');
+var Card = require("../models/cards");
+var User = require('../models/users');
 
 
 exports.getPostCard = function (req, res) {
