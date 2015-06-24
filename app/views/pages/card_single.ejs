@@ -21,11 +21,15 @@
         <% } %>
         <% if(auth_user) { %>
         <form method="post" action="/<%=auth_user.username %>/<%=card._id %>/favorite">
-            <label for="favorites">Favs</label>
+            <label for="favorites">Favorites</label>
             <input type="submit" value="<%=card.attr.favorites %>" id="favorites" />
             <% if (isFavorite == true) { %> <span> You like it </span> <% } %>
         </form>
         <% } %>
+
+        <form  method="post" action="cards/<%=card._id %>/order">
+            <input type="submit" class="btn btn--primary" value="Add to Cart"  />
+        </form>
 
         <br><br><br>
         

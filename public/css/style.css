@@ -80,3 +80,35 @@ h1, h2, h3, h4, p {
 .storyContent p {
     margin-bottom: 1.5em;
 }
+
+
+.btn {
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -o-border-radius: 3px;
+  border-radius: 3px;
+  -webkit-box-shadow: 0 1px 1px 0 rgba(0,0,0,0.3);
+  -moz-box-shadow: 0 1px 1px 0 rgba(0,0,0,0.3);
+  -o-box-shadow: 0 1px 1px 0 rgba(0,0,0,0.3);
+  box-shadow: 0 1px 1px 0 rgba(0,0,0,0.3);
+  display: block;
+  cursor: pointer;
+}
+
+.btn--primary {
+    background-color: #4183c4;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#4183c4), to(#3c78b5));
+    background-image: -webkit-linear-gradient(top, #4183c4, #3c78b5);
+    background-image: -moz-linear-gradient(top, #4183c4, #3c78b5);
+    background-image: -ms-linear-gradient(top, #4183c4, #3c78b5);
+    background-image: -o-linear-gradient(top, #4183c4, #3c78b5);
+    background-image: linear-gradient(top, #4183c4, #3c78b5);
+    border: 1px solid #2a5b8d;
+    border-radius: 4px;
+    color: #fff;
+    display: inline-block;
+    font-family: "OpenSansBold","Helvetica Neue",Helvetica,Arial,sans-serif;
+    padding: 12px 40px;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+}
+}
