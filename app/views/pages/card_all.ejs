@@ -14,18 +14,21 @@
         <ul class="clearfix cards">
 			<%	for (var i = 0; i < cards.length; i++) {	%>
 				<li>
-					<a href="/cards/<%= cards[i]._id %>">
-                        <div><img src="<%= cards[i].image %>" width="200px" height="150px"  /></div>
-                        <div><%= cards[i].title %></div>
-                    </a>
+                    <div class="wrapper">
+    					<a href="/cards/<%= cards[i]._id %>">
+                            <div><img src="<%= cards[i].image %>" width="200px" height="150px"  /></div>
+                            <div><%= cards[i].title %></div>
+                        </a>
+                    </div>
                     by: <a href="/<%= cards[i].user.username %>"><%= cards[i].user.username %></a>
 				</li>
 			<%	}	%>
 		</ul>
     </div>
+    
 
-    <script src="jquery/dist/jquery.js"></script>
-    <script src="bootstrap/dist/js/bootstrap.js"></script>
+    <% include ../partials/footer %>
+
 
 </body>
 </html>

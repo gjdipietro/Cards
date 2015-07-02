@@ -15,8 +15,7 @@
         <p><%= user.profile.bio %><p>
         
         <a href="/<%= user.username %>/">Posted</a> | 
-        <a href="/<%= user.username %>/Favorites">Favorites</a> | 
-        <a href="/<%= user.username %>/orders">Orders</a>
+        <a href="/<%= user.username %>/Favorites">Favorites</a> 
         <hr>
 
         <h2><%= sub_title %></h2>
@@ -41,8 +40,7 @@
 
     </div>
 
-    <script src="jquery/dist/jquery.js"></script>
-    <script src="bootstrap/dist/js/bootstrap.js"></script>
+    <% include ../partials/footer %>
 
 </body>
 </html>

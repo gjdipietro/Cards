@@ -18,6 +18,8 @@ express().use(multer());
 //Controllers
 var userController = require("../controllers/user");
 var cardController = require("../controllers/card");
+var cartController = require("../controllers/cart");
+
 
 
 // Routes
@@ -42,18 +44,29 @@ router.route('/cards/post')
 
 router.route("/cards/:card_id")
     .get(cardController.getCard);
-    
 
 router.route('/cards/:card_id/delete')
     .post(cardController.postDeleteCard);
-
 
 router.route("/:username/:card_id/favorite")
     .post(cardController.postFavoriteCard);
 
 
 /*========================================
-USERS
+CART
+=========================================*/
+router.route("/i/cart")
+    .get(cartController.getUserCart);
+
+router.route("/:username/:card_id/addToCart")
+    .post(cartController.postAddToCart);
+
+router.route("/:username/:card_id/deleteFromCart")
+    .post(cartController.postDeleteFromCart);
+
+
+/*========================================
+PROFILE
 =========================================*/
 router.route("/i/u/")
     .get(userController.getAllUsers);
@@ -64,10 +77,12 @@ router.route("/:username")
 router.route("/:username/favorites")
     .get(userController.getUserFavorites);
 
-router.route("/:username/Orders")
-    .get(userController.getUserOrders);
 
 
+
+/*========================================
+SIGN IN AND REGISTER
+=========================================*/
 router.route("/i/register")
     .get(userController.getRegister)
     .post(userController.postRegister);
@@ -106,9 +121,21 @@ router.route('/i/about')
         });
     });
 
-
-
-
+var Orders = require('../models/orders');
+router.route('/i/orders')
+    .get(function (req, res) {
+        Orders.find(function (err, orders) {
+            if (!err) {
+                res.render("../views/pages/orders_all", {
+                    doc_title: "Orders " + companyName,
+                    page_title: "Orders " + companyName,
+                    orders: orders
+                }); 
+            } else {
+                res.send(err);
+            }
+        });
+    });
 
 
 

@@ -29,6 +29,9 @@ exports.postCard = function (req, res) {
     card = new Card({
         title: req.body.title,
         description : req.body.description,
+        attr : {
+            "price" : req.body.price
+        },
         user: req.user._id,
         image: imgUrl
     });
@@ -127,3 +130,4 @@ exports.postFavoriteCard = function (req, res) {
         });
     });
 }
+

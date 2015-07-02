@@ -4,7 +4,13 @@
 	    	<div class="credentials">
 	    		<% if(auth_user) { %>
 		        	<a href="/<%= auth_user.username %>/"> 
-			        	<img src=" <%= auth_user.gravatar(24) %> ">
+			        	<img src="<%= auth_user.gravatar(32)%>">
+		        	</a>
+		        	<a href="/i/cart">
+		        		Cart 
+						<% if(auth_user.cart.length) { %>
+		        			(<%= auth_user.cart.length %>)
+		        		<% } %>
 		        	</a>
 		        	<a href="/i/post-card">Post Card</a>
 		        	<a href="/i/signout">Sign out</a>

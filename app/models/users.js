@@ -40,6 +40,9 @@ var userSchema = new Schema({
     favorites: {
         type: Array,
     },
+    cart: {
+        type: Array,
+    },
     orders: {
         type: Array,
     }

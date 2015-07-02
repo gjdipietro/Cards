@@ -1,5 +1,4 @@
 
-
 <% include ../partials/head %>
 
 <body>
@@ -13,23 +12,25 @@
         <div><img src="<%=card.image %>"/></div>
         <div><%=card.description %></div>
         <div><%=card.date.created %></div>
-
+        <div><%=card.attr.price %></div>
         <br>
         
         <% if(!auth_user) { %>
             <%=card.attr.favorites %> Favorites
         <% } %>
+        
+        
         <% if(auth_user) { %>
-        <form method="post" action="/<%=auth_user.username %>/<%=card._id %>/favorite">
-            <label for="favorites">Favorites</label>
-            <input type="submit" value="<%=card.attr.favorites %>" id="favorites" />
-            <% if (isFavorite == true) { %> <span> You like it </span> <% } %>
-        </form>
+            <form method="post" action="/<%=auth_user.username %>/<%=card._id %>/favorite">
+                <label for="favorites">Favorites</label>
+                <input type="submit" value="<%=card.attr.favorites %>" id="favorites" />
+                <% if (isFavorite == true) { %> <span> You like it </span> <% } %>
+            </form>
+            <br><br>
+            <form  method="post" action="/<%=auth_user.username %>/<%=card._id %>/addToCart">
+                <input type="submit" class="btn btn--primary" value="Add to Cart"  />
+            </form>
         <% } %>
-
-        <form  method="post" action="cards/<%=card._id %>/order">
-            <input type="submit" class="btn btn--primary" value="Add to Cart"  />
-        </form>
 
         <br><br><br>
         
@@ -39,6 +40,8 @@
         </form>
         <% } %>
     </div>
+
+    <% include ../partials/footer %>
 
     <script src="jquery/dist/jquery.js"></script>
     <script src="bootstrap/dist/js/bootstrap.js"></script>

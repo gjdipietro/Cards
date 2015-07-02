@@ -34,6 +34,7 @@ exports.getUser = function (req, res) {
         } 
     });
 };
+
 exports.getUserFavorites = function (req, res) {
     User.findOne({username: req.params.username}, function (err, currUser) {
         if(currUser) {
@@ -53,9 +54,7 @@ exports.getUserFavorites = function (req, res) {
         } 
     });
 };
-exports.getUserOrders = function (req, res) {
-    console.log("Orders");
-};
+
 exports.getAllUsers = function (req, res) {
     User.find(function (err, users) {
         if (!err) {
@@ -72,6 +71,37 @@ exports.getAllUsers = function (req, res) {
 
 
 
+//User Cart and Checkout
+exports.getUserCart = function (req, res) {
+    if(req.user) {
+        User.findOne({username: req.user.username}, function (err, currUser) {
+            if(currUser) {
+                console.log(currUser.cart);
+                Card.find({ _id : { $in : currUser.cart }  }, function (err, cards) {
+                    if (!err) {
+                        res.render("../views/pages/cart", {
+                            doc_title: "My Cart " + companyName, 
+                            page_title: "My Cart", 
+                            user: currUser,
+                            cards: cards
+                        }); 
+                    } else {
+                         res.send(err);
+                    }
+                }); 
+            } 
+        });
+    }
+    else {
+        res.redirect('/i/signin');
+    }
+      
+};
+
+
+
+
+
 //Sign in and register
 exports.getSignin = function (req, res) {
     if (req.user) { 
@@ -82,6 +112,8 @@ exports.getSignin = function (req, res) {
         page_title: "Sign In", 
     });
 };
+
+
 exports.postSignin = function (req, res, next) {
     var errors = req.validationErrors();
     if (errors) {
@@ -106,12 +138,16 @@ exports.postSignin = function (req, res, next) {
         });
     })(req, res, next);
 };
+
+
 exports.getRegister = function (req, res) {
     res.render("../views/pages/register", {
        doc_title: "Register In " + companyName,
        page_title: "Register", 
     });
 };
+
+
 exports.postRegister = function (req, res) {
     var user = new User({
         email : req.body.email,
@@ -154,6 +190,7 @@ exports.postRegister = function (req, res) {
         });
     });
 };
+
 exports.signout = function(req, res) {
     req.logout();
     res.redirect("/");

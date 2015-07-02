@@ -1,0 +1,59 @@
+<% include ../partials/head %>
+
+<style>
+    .cart {
+        margin: 0 0 0 0;
+        padding: 0;
+    }
+    .cart li {
+        list-style: none;
+        border-bottom: 1px solid #DDD;
+    }
+</style>
+
+<body>
+    <% include ../partials/global_nav %>
+
+    <div class="container">
+        <h1><%= page_title %></h1>
+
+        <% if(cards.length == 0) { %>
+        <div> Aint got nothing to show ya</div>
+        <% } %>
+        
+        <% if(cards.length >  0) { %>
+        <ul class="cart">
+            <%  for (var i = 0; i < cards.length; i++) {    %>
+                <li>
+                    <div class="clearfix">
+                        <div style="float:right"><%= cards[i].attr.price %></div>
+                        
+                        <div style="float:left; margin:10px;">
+                            <img src="<%= cards[i].image %>" width="120px"/>
+                        </div>
+                        <div style="float:left; margin:10px; width: 200px;">
+                            <a href="/cards/<%= cards[i]._id %>"><%= cards[i].title %></a>
+                            <br>
+                            
+                            <form  method="post" action="/<%=auth_user.username %>/<%=cards[i]._id %>/deleteFromCart">
+                                <input type="submit" value="Remove"  />
+                            </form>
+                        </div>
+                    </div>
+                </li>
+
+            <%  }   %>
+            <li>
+                total: <%= total_price %>
+            </li>
+        </ul>
+        
+        <input type="submit" value="Checkout" class="btn btn--primary" >
+        <%  }   %>
+
+    </div>
+    
+    <% include ../partials/footer %>
+
+</body>
+</html>
