@@ -14,7 +14,7 @@ var Card = require("../models/cards");
 var User = require('../models/users');
 
 
-//Dealing with users profile
+//GET Profile
 exports.getUser = function (req, res) {
     User.findOne({username: req.params.username}, function (err, currUser) {
         if(currUser) {
@@ -35,6 +35,7 @@ exports.getUser = function (req, res) {
     });
 };
 
+//GET Favorites
 exports.getUserFavorites = function (req, res) {
     User.findOne({username: req.params.username}, function (err, currUser) {
         if(currUser) {
@@ -55,6 +56,7 @@ exports.getUserFavorites = function (req, res) {
     });
 };
 
+//GET All Users
 exports.getAllUsers = function (req, res) {
     User.find(function (err, users) {
         if (!err) {
@@ -71,7 +73,7 @@ exports.getAllUsers = function (req, res) {
 
 
 
-//User Cart and Checkout
+//GET Cart
 exports.getUserCart = function (req, res) {
     if(req.user) {
         User.findOne({username: req.user.username}, function (err, currUser) {
@@ -94,15 +96,14 @@ exports.getUserCart = function (req, res) {
     }
     else {
         res.redirect('/i/signin');
-    }
-      
+    }    
 };
 
 
 
 
 
-//Sign in and register
+//GET Sign in
 exports.getSignin = function (req, res) {
     if (req.user) { 
         return res.redirect('/');
@@ -113,33 +114,29 @@ exports.getSignin = function (req, res) {
     });
 };
 
-
+//POST Sign in
 exports.postSignin = function (req, res, next) {
+    req.assert('password', 'Password cannot be blank').notEmpty();
     var errors = req.validationErrors();
     if (errors) {
-        req.flash('errors', errors);
+        req.flash('error', errors);
         return res.redirect("/i/signin");
     }
 
     passport.authenticate('local', function (err, user, info) {
-        if (err) {
-            return next(err);
-        }
+        if (err) return next(err);
         if (!user) {
-            req.flash('errors', { msg: info.message });
+            req.flash('error', { msg: info.message });
             return res.redirect("/i/signin");
         }
         req.logIn(user, function (err) {
-            if (err) {
-                return next(err);
-            }
-            req.flash('success', { msg: 'Success! You are logged in.' });
+            if (err) return next(err);
             res.redirect(req.session.returnTo || '/');
-        });
+        });  
     })(req, res, next);
 };
 
-
+//GET Register
 exports.getRegister = function (req, res) {
     res.render("../views/pages/register", {
        doc_title: "Register In " + companyName,
@@ -147,7 +144,7 @@ exports.getRegister = function (req, res) {
     });
 };
 
-
+//POST Register
 exports.postRegister = function (req, res) {
     var user = new User({
         email : req.body.email,

@@ -32,13 +32,13 @@ app.use(session({
     saveUninitialized: true,
     secret: secrets.sessionSecret,
 }));
-app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(function (req, res, next) {
     res.locals.auth_user = req.user;
     next();
 });
+app.use(flash());
 
 
 app.use(bodyParser.urlencoded({ extended: true }));
