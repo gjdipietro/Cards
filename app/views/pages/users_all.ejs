@@ -14,7 +14,7 @@
 			<%	for (var i = 0; i < users.length; i++) {	%>
 				<li>
 					<a href="/<%= users[i].username %>/">
-                        <%= users[i].username %> 
+                        <%= users[i].username_display || users[i].username %> 
                     </a>
                     (<%= users[i]._id %>) <br><br>
 				</li>

@@ -11,6 +11,11 @@ var userSchema = new Schema({
         lowercase: true,
         required: true
     },
+    username_display: {
+        type: String, 
+        unique: true, 
+        lowercase: true,
+    },
     username: {
         type: String, 
         unique: true, 
@@ -56,7 +61,7 @@ var userSchema = new Schema({
  */
 userSchema.pre('save', function(next) {
   var user = this;
-  
+  user.username_display = user.username
   user.username = string_to_slug(user.username);
 
   if (!user.isModified('password')) return next();
