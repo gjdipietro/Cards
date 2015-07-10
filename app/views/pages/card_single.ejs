@@ -35,9 +35,16 @@
         <br><br><br>
         
         <% if(isMyCard) { %>
+        
+        <a href="cards/<%=card._id %>/edit">Edit Card</a>
+        
+        <br><br><br>
+
         <form  method="post" action="cards/<%=card._id %>/delete">
             <input type="submit" value="Delete Card"  />
         </form>
+
+
         <% } %>
     </div>
 

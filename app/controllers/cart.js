@@ -63,7 +63,11 @@ exports.postDeleteFromCart = function (req, res) {
   Card.findById(req.params.card_id, function (err, card) {
     User.findById(req.user, function (err, user) {
       if (!err) {
-        user.cart.splice(card._id);
+        for (var i=user.cart.length-1; i>=0; i--) {
+          if (user.cart[i].equals(card._id)) {
+            user.cart.splice(i, 1);
+          }
+        }
         user.save(function (err) {
           if (!err) {
             res.redirect("/i/cart/");

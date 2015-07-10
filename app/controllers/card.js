@@ -11,19 +11,66 @@ var Card = require("../models/cards");
 var User = require('../models/users');
 
 exports.getPostCard = function (req, res) {
-  if (!req.user) return res.redirect('/signin');
+  if (!req.user) return res.redirect('/i/signin');
   res.render("../views/pages/card_post", {
     doc_title: "Post a card  \u00B7 " + companyName, 
     page_title: "Post a card",
   });
 }
+
+exports.getEditCard = function (req, res) {
+  if (!req.user) return res.redirect('/i/signin');
+  Card.findById(req.params.card_id, function (err, card) {
+    if (!err) {
+      res.render("../views/pages/card_post", {
+        doc_title: "Edit card  \u00B7 " + companyName, 
+        page_title: "Edit Card",
+        card: card
+      });
+    } else {
+      res.send(err);
+    } 
+  });
+}
+
+exports.postEditCard = function (req, res) {
+  if (!req.user) return res.redirect('/i/signin');
+  
+  Card.findById(req.params.card_id, function (err, card){
+    var imgUrl;
+    
+    if (req.files.image && req.files.image.size < 200000) {
+      imgUrl = "/img/cards/" + req.files.image.name;
+    } else {
+      imgUrl = card.image;
+    }
+
+    card.title = req.body.title;
+    card.description = req.body.description;
+    card.attr.price = req.body.price;
+    card.image = imgUrl;
+
+    card.save(function (err) {
+      if (err) {
+        res.send(err);
+      } else {
+        res.redirect("/cards/" + card._id);
+      }
+    }); 
+  });
+
+};
+
 exports.postCard = function (req, res) {
+  if (!req.user) return res.redirect('/i/signin');
   var imgUrl, card;
+
   if (req.files.image && req.files.image.size < 200000) {
-    imgUrl = "/img/cards/" + req.files.image.name;
+      imgUrl = "/img/cards/" + req.files.image.name;
   } else {
     imgUrl = "/img/cards/default.png";
   }
+
   card = new Card({
     title: req.body.title,
     description : req.body.description,
@@ -33,13 +80,14 @@ exports.postCard = function (req, res) {
     user: req.user._id,
     image: imgUrl
   });
+
   card.save(function (err) {
     if (err) {
       res.send(err);
     } else {
       res.redirect("/cards/" + card._id);
     }
-  });       
+  }); 
 };
 
 exports.getAllCards = function (req, res) {
@@ -55,6 +103,7 @@ exports.getAllCards = function (req, res) {
     }
   });
 }
+
 exports.getCard = function (req, res) {
   Card.findById(req.params.card_id, function (err, card) {
     User.findById(card.user, function (err, user) {
@@ -99,6 +148,7 @@ exports.postDeleteCard = function (req, res) {
     }
   })
 };
+
 exports.postFavoriteCard = function (req, res) {
   Card.findById(req.params.card_id, function (err, card) {
     User.findById(req.user, function (err, user) {
@@ -124,4 +174,5 @@ exports.postFavoriteCard = function (req, res) {
     });
   });
 }
+
 

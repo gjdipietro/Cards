@@ -45,6 +45,10 @@ router.route('/cards/post')
 router.route("/cards/:card_id")
     .get(cardController.getCard);
 
+router.route('/cards/:card_id/edit')
+    .get(cardController.getEditCard)
+    .post(cardMulter, cardController.postEditCard);
+
 router.route('/cards/:card_id/delete')
     .post(cardController.postDeleteCard);
 
