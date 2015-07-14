@@ -10,8 +10,14 @@ var tagline = "Greeting Cards that don't suck";
 var Card = require("../models/cards");
 var User = require('../models/users');
 
+
+
+
 exports.getPostCard = function (req, res) {
-  if (!req.user) return res.redirect('/i/signin');
+  if (!req.user) {
+    req.session.returnTo = '/i/post-card';
+    return res.redirect('/i/signin');
+  }
   res.render("../views/pages/card_post", {
     doc_title: "Post a card  \u00B7 " + companyName, 
     page_title: "Post a card",

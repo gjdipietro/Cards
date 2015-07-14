@@ -7,43 +7,43 @@
         <h1><%= page_title %></h1>
 		<form method="post" action="<%= typeof card=='undefined' ? '/cards/post' : '/cards/'+card._id+'/edit' %>"  enctype="multipart/form-data">
 			
-			<div class="form-group">
-				<label for="title">Name your card</label> <br>  
+			<div class="formGroup formGroup--stacked">
+				<label for="title">Name your card</label> 
 				<input type="text" 
 					name="title" 
-					class="form-control" 
+					class="input" 
 					id="title" 
 					placeholder="Something fun" 
 					value="<%= typeof card!='undefined' ? card.title : '' %>">
 			</div>
 
 
-			<div class="form-group">
-				<label for="description">Describe your card</label><br>
-				<textarea id="description" name="description" class="form-control"><%= typeof card!='undefined' ? card.description : '' %></textarea>
+			<div class="formGroup formGroup--stacked">
+				<label for="description">Describe your card</label>
+				<textarea id="description" name="description" class="input"><%= typeof card!='undefined' ? card.description : '' %></textarea>
 			</div>
 				
 
-			<div class="form-group">
-				<label for="price">Price</label><br>
-				<input type="text" name="price" class="form-control" id="price" placeholder="$" value="<%= typeof card!='undefined' ? card.attr.price : '' %>">
+			<div class="formGroup formGroup--stacked">
+				<label for="price">Price</label>
+				<input type="text" name="price" class="input" id="price" placeholder="$" value="<%= typeof card!='undefined' ? card.attr.price : '' %>">
 			</div>
 
 
-			<div class="form-group">
+			<div class="formGroup formGroup--stacked">
 				<% if(typeof card!='undefined') { %>
 					<div>
 						<img src="<%= card.image %>" alt="<%= card.title %>" />
 					</div>
 				<% } %>
 
-				<label for="image">File</label><br>
+				<label for="image">File</label>
 				<input type="file" id="image" name="image" />
 			</div>
 
 			<br><br><br>
 
-			<div class="form-group">
+			<div class="formGroup formGroup--stacked">
 				<input type="submit" value="Submit" class="btn btn--primary">
 			</div>
 		</form>

@@ -8,21 +8,27 @@
     <div class="container">
         <h1><%= page_title %></h1>
         <form  accept-charset="UTF-8" method="post">
-
         	<!-- Sign in with: <br>
         	<a href="/auth/facebook">Facebook</a>
         	<a href="/auth/twitter">Twitter</a>
 			<br><br> -->
 			
-			<fieldset>
-				<label for="username">Username or Email</label><br>
-				<input type="text" name="username" id="username" value="" tabindex="1" autocorrect="off" autocapitalize="off" autofocus="true">
-			</fieldset>
+			<div class="formGroup formGroup--stacked">
+				<label for="username">Username or Email</label>
+				<input type="text" name="username" id="username" value="" tabindex="1" autocorrect="off" autocapitalize="off" autofocus="true" class="input">
+			</div>
 
-			<fieldset>
-				<label for="password">Password</label><br>
-				<input type="password" name="password" id="password" value="" tabindex="2">
-			</fieldset>
+			<div class="formGroup formGroup--stacked">
+				<label for="password">Password</label>
+				<input type="password" name="password" id="password" value="" tabindex="2" class="input">
+			</div>
+
+			<div class="formGroup formGroup--stacked">
+				<label for="remember">
+					<input type="checkbox" id="remember" checked="checked"> Remember me
+				</label>
+			</div>
+
 			<br><br>
 			
 			<input type="submit" value="Sign In" class="btn btn--primary" tabindex="3">

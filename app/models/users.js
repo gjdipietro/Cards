@@ -5,56 +5,54 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var userSchema = new Schema({
-    email: { 
-        type: String, 
-        unique: true, 
-        lowercase: true,
-        required: true
-    },
-    username_display: {
-        type: String, 
-        unique: true, 
-        lowercase: true,
-    },
-    username: {
-        type: String, 
-        unique: true, 
-        lowercase: true,
-        required: true
-    },
-    password: String,
-    facebook: String,
-    twitter: String,
-    google: String,
-    tokens: Array,
-    profile: {
-        name: { type: String, default: ""},
-        bio: { type: String, default: ""},
-        location: { type: String, default: ""},
-        website: { type: String, default: ""},
-        picture: { type: String, default: ""}
-    },
-    created: { 
-        type: Date, 
-        default: Date.now() 
-    },
-    powerUser: { 
-        type: Boolean,
-        default: false
-    },
-    favorites: {
-        type: Array,
-    },
-    cart: {
-        type: Array,
-    },
-    orders: {
-        type: Array,
-    }
+  email: { 
+    type: String, 
+    unique: true, 
+    lowercase: true,
+    required: true
+  },
+  username_display: {
+    type: String, 
+    unique: true, 
+    lowercase: true,
+  },
+  username: {
+    type: String, 
+    unique: true, 
+    lowercase: true,
+    required: true
+  },
+  password: String,
+  facebook: String,
+  twitter: String,
+  google: String,
+  tokens: Array,
+  profile: {
+    name: {type: String, default: ""},
+    bio: {type: String, default: ""},
+    location: {type: String, default: ""},
+    website: {type: String, default: ""},
+    picture: {type: String, default: ""}
+  },
+  created: { 
+    type: Date, 
+    default: Date.now() 
+  },
+  powerUser: { 
+    type: Boolean,
+    default: false
+  },
+  favorites: {
+    type: Array,
+  },
+  cart: {
+    type: Array,
+  },
+  orders: {
+    type: Array,
+  }
 
 });
-
-
 
 /**
  * Password hash middleware.
@@ -95,7 +93,6 @@ userSchema.methods.gravatar = function(size) {
   return 'https://gravatar.com/avatar/' + md5 + '?s=' + size + '&d=retro';
 };
 
-
 function string_to_slug(str) {
   str = str.replace(/^\s+|\s+$/g, ''); // trim
   str = str.toLowerCase();
@@ -103,7 +100,7 @@ function string_to_slug(str) {
   // remove accents, swap ñ for n, etc
   var from = "àáäâèéëêìíïîòóöôùúüûñç·/_,:;";
   var to   = "aaaaeeeeiiiioooouuuunc------";
-  for (var i=0, l=from.length ; i<l ; i++) {
+  for (var i = 0, l = from.length ; i < l ; i++) {
     str = str.replace(new RegExp(from.charAt(i), 'g'), to.charAt(i));
   }
 
@@ -115,5 +112,4 @@ function string_to_slug(str) {
 }
 
 module.exports = mongoose.model("User", userSchema);
-
 

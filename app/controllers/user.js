@@ -5,11 +5,11 @@ var passport = require('../../config/auth');
 var crypto = require('crypto');
 var nodemailer = require('nodemailer');
 var secrets = require('../../config/secrets');
-var companyName = "Snail Cards";
-var tagline = "Greeting Cards that don't suck";
+var companyName = 'Snail Cards';
+var tagline = 'Greeting Cards that don\'t suck';
 
 // Models
-var Card = require("../models/cards");
+var Card = require('../models/cards');
 var User = require('../models/users');
 
 //GET Profile
@@ -19,10 +19,10 @@ exports.getUser = function (req, res) {
       Card.find({user: currUser._id}, function (err, cards) {
         if (!err) {
           var un = currUser.username_display || currUser.username;
-          res.render("../views/pages/user_single", {
-            doc_title: un + ' \u00B7 ' + companyName, 
+          res.render('../views/pages/user_single', {
+            doc_title: un + ' \u00B7 ' + companyName,
             page_title: un,
-            sub_title: "Posted Cards", 
+            sub_title: 'Posted Cards',
             user: currUser,
             cards: cards
           }); 
@@ -40,10 +40,10 @@ exports.getUserFavorites = function (req, res) {
     if (currUser) {
       Card.find({_id : {$in : currUser.favorites}}, function (err, cards) {
         if (!err) {
-          res.render("../views/pages/user_single", {
+          res.render('../views/pages/user_single', {
             doc_title: currUser.username + ' \u00B7 ' + companyName, 
             page_title: currUser.username, 
-            sub_title: "Favorites",
+            sub_title: 'Favorites',
             user: currUser,
             cards: cards
           }); 
@@ -59,9 +59,9 @@ exports.getUserFavorites = function (req, res) {
 exports.getAllUsers = function (req, res) {
   User.find(function (err, users) {
     if (!err) {
-      res.render("../views/pages/users_all", {
-        doc_title: "Users  \u00B7 " + companyName, 
-        page_title: "Browse Users",
+      res.render('../views/pages/users_all', {
+        doc_title: 'Users  \u00B7 ' + companyName, 
+        page_title: 'Browse Users',
         users: users
       }); 
     } else {
@@ -78,9 +78,9 @@ exports.getUserCart = function (req, res) {
         console.log(currUser.cart);
         Card.find({_id : {$in : currUser.cart}}, function (err, cards) {
           if (!err) {
-            res.render("../views/pages/cart", {
-              doc_title: "My Cart " + companyName, 
-              page_title: "My Cart", 
+            res.render('../views/pages/cart', {
+              doc_title: 'My Cart ' + companyName,
+              page_title: 'My Cart',
               user: currUser,
               cards: cards
             }); 
@@ -100,9 +100,9 @@ exports.getSignin = function (req, res) {
   if (req.user) { 
     return res.redirect('/');
   }
-  res.render("../views/pages/signin", {
-    doc_title: "Sign In " + companyName,
-    page_title: "Sign In", 
+  res.render('../views/pages/signin', {
+    doc_title: 'Sign In ' + companyName,
+    page_title: 'Sign In',
   });
 };
 
@@ -112,37 +112,50 @@ exports.postSignin = function (req, res, next) {
   var errors = req.validationErrors();
   if (errors) {
     req.flash('error', errors);
-    return res.redirect("/i/signin");
+    return res.redirect('/i/signin');
   }
 
   passport.authenticate('local', function (err, user, info) {
     if (err) return next(err);
+    
     if (!user) {
       req.flash('error', {msg: info.message});
-      return res.redirect("/i/signin");
+      return res.redirect('/i/signin');
+    }
+
+    if (req.body.remember) {
+      conosole.log("SUCK");
+      req.session.cookie.maxAge = 1000 * 60 * 3;
+      console.log(req.session);
+    } else {
+      req.session.cookie.expires = false;
     }
     req.logIn(user, function (err) {
       if (err) return next(err);
       res.redirect(req.session.returnTo || '/');
-    });  
+    });
   })(req, res, next);
 };
 
 //GET Register
 exports.getRegister = function (req, res) {
-  res.render("../views/pages/register", {
-    doc_title: "Register In " + companyName,
-    page_title: "Register", 
+  res.render('../views/pages/register', {
+    doc_title: 'Register In ' + companyName,
+    page_title: 'Register',
   });
 };
 
 //POST Register
 exports.postRegister = function (req, res, next) {
-  var user, incompleteMsg, emailTaken, usernameTaken, errors;
-  
-  incompleteMsg = "Please complete the fields.";
-  emailTaken = "An Account with that email address already exists.";
-  usernameTaken = "An Account with that username address already exists.";
+  var user;
+  var incompleteMsg;
+  var emailTaken;
+  var usernameTaken;
+  var errors;
+  var query;
+  incompleteMsg = 'Please complete the fields.';
+  emailTaken = 'An Account with that email address already exists.';
+  usernameTaken = 'An Account with that username address already exists.';
 
   req.assert('email', 'Email is not valid').isEmail();
   req.assert('username', 'Username is not valid').len(4);
@@ -156,7 +169,7 @@ exports.postRegister = function (req, res, next) {
   }
 
   if (!req.body.email || !req.body.username || !req.body.password) {
-    req.flash("error", {msg: incompleteMsg});
+    req.flash('error', {msg: incompleteMsg});
     return res.redirect('/i/register');
   }
 
@@ -166,10 +179,10 @@ exports.postRegister = function (req, res, next) {
     password: req.body.password,
   });
 
-  var query  = User.where({ $or: [{email: req.body.email}, {username: req.body.username}] });
+  query  = User.where({$or: [{email: req.body.email}, {username: req.body.username}]});
   query.findOne(function (err, existingUser) {
     if (existingUser || err) {
-      req.flash("error", {msg: "The email or username is taken!"});
+      req.flash('error', {msg: 'The email or username is taken!'});
       return res.redirect('/i/register');
     }
     user.save(function (err) {
@@ -184,7 +197,7 @@ exports.postRegister = function (req, res, next) {
 
 exports.signout = function(req, res) {
   req.logout();
-  res.redirect("/");
+  res.redirect('/');
 };
 
 /*
