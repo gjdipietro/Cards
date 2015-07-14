@@ -5,7 +5,7 @@ var passport = require('../../config/auth');
 var crypto = require('crypto');
 var nodemailer = require('nodemailer');
 var secrets = require('../../config/secrets');
-var companyName = 'Snail Cards';
+var companyName = 'Greeting Cardinal';
 var tagline = 'Greeting Cards that don\'t suck';
 
 // Models
@@ -20,8 +20,8 @@ exports.getUser = function (req, res) {
         if (!err) {
           var un = currUser.username_display || currUser.username;
           res.render('../views/pages/user_single', {
-            doc_title: un + ' \u00B7 ' + companyName,
-            page_title: un,
+            docTitle: un + ' \u00B7 ' + companyName,
+            pageTitle: un,
             sub_title: 'Posted Cards',
             user: currUser,
             cards: cards
@@ -41,8 +41,8 @@ exports.getUserFavorites = function (req, res) {
       Card.find({_id : {$in : currUser.favorites}}, function (err, cards) {
         if (!err) {
           res.render('../views/pages/user_single', {
-            doc_title: currUser.username + ' \u00B7 ' + companyName, 
-            page_title: currUser.username, 
+            docTitle: currUser.username + ' \u00B7 ' + companyName,
+            pageTitle: currUser.username,
             sub_title: 'Favorites',
             user: currUser,
             cards: cards
@@ -60,8 +60,8 @@ exports.getAllUsers = function (req, res) {
   User.find(function (err, users) {
     if (!err) {
       res.render('../views/pages/users_all', {
-        doc_title: 'Users  \u00B7 ' + companyName, 
-        page_title: 'Browse Users',
+        docTitle: 'Users  \u00B7 ' + companyName, 
+        pageTitle: 'Browse Users',
         users: users
       }); 
     } else {
@@ -70,68 +70,43 @@ exports.getAllUsers = function (req, res) {
   });
 };
 
-//GET Cart
-exports.getUserCart = function (req, res) {
-  if (req.user) {
-    User.findOne({username: req.user.username}, function (err, currUser) {
-      if (currUser) {
-        console.log(currUser.cart);
-        Card.find({_id : {$in : currUser.cart}}, function (err, cards) {
-          if (!err) {
-            res.render('../views/pages/cart', {
-              doc_title: 'My Cart ' + companyName,
-              page_title: 'My Cart',
-              user: currUser,
-              cards: cards
-            }); 
-          } else {
-            res.send(err);
-          }
-        }); 
-      } 
-    });
-  } else {
-    res.redirect('/i/signin');
-  }    
-};
 
 //GET Sign in
 exports.getSignin = function (req, res) {
-  if (req.user) { 
+  if (req.user) {
     return res.redirect('/');
   }
   res.render('../views/pages/signin', {
-    doc_title: 'Sign In ' + companyName,
-    page_title: 'Sign In',
+    docTitle: companyName + ' \u00B7 Sign In',
+    pageTitle: 'Sign In',
   });
 };
 
 //POST Sign in
 exports.postSignin = function (req, res, next) {
-  req.assert('password', 'Password cannot be blank').notEmpty();
   var errors = req.validationErrors();
+  req.assert('password', 'Password cannot be blank').notEmpty();
   if (errors) {
     req.flash('error', errors);
     return res.redirect('/i/signin');
   }
-
   passport.authenticate('local', function (err, user, info) {
-    if (err) return next(err);
-    
+    if (err) {
+      return next(err);
+    }
     if (!user) {
       req.flash('error', {msg: info.message});
       return res.redirect('/i/signin');
     }
-
     if (req.body.remember) {
-      conosole.log("SUCK");
       req.session.cookie.maxAge = 1000 * 60 * 3;
-      console.log(req.session);
     } else {
       req.session.cookie.expires = false;
     }
     req.logIn(user, function (err) {
-      if (err) return next(err);
+      if (err) {
+        return next(err);
+      }
       res.redirect(req.session.returnTo || '/');
     });
   })(req, res, next);
@@ -140,8 +115,8 @@ exports.postSignin = function (req, res, next) {
 //GET Register
 exports.getRegister = function (req, res) {
   res.render('../views/pages/register', {
-    doc_title: 'Register In ' + companyName,
-    page_title: 'Register',
+    docTitle: companyName + ' \u00B7 Register',
+    pageTitle: 'Register',
   });
 };
 
@@ -179,16 +154,20 @@ exports.postRegister = function (req, res, next) {
     password: req.body.password,
   });
 
-  query  = User.where({$or: [{email: req.body.email}, {username: req.body.username}]});
+  query = User.where({$or: [{email: req.body.email}, {username: req.body.username}]});
   query.findOne(function (err, existingUser) {
     if (existingUser || err) {
       req.flash('error', {msg: 'The email or username is taken!'});
       return res.redirect('/i/register');
     }
     user.save(function (err) {
-      if (err) res.send(err);
+      if (err) {
+        res.send(err);
+      }
       req.logIn(user, function (err) {
-        if (err) return next(err);
+        if (err) {
+          return next(err);
+        }
         res.redirect('/');
       });
     });

@@ -5,11 +5,11 @@ var passport = require('../../config/auth');
 var crypto = require('crypto');
 var nodemailer = require('nodemailer');
 var secrets = require('../../config/secrets');
-var companyName = "Snail Cards";
-var tagline = "Greeting Cards that don't suck";
+var companyName = 'Greeting Cardinal';
+var tagline = 'Greeting Cards that don\'t suck';
 
 // Models
-var Card = require("../models/cards");
+var Card = require('../models/cards');
 var User = require('../models/users');
 var Orders = require('../models/orders');
 
@@ -25,8 +25,8 @@ exports.getUserCart = function (req, res) {
               total_price += parseFloat(cards[i].attr.price);
             }
             res.render("../views/pages/cart", {
-              doc_title: "My Cart " + companyName, 
-              page_title: "My Cart", 
+              docTitle: 'My Cart ' + companyName, 
+              pageTitle: 'My Cart',
               user: currUser,
               cards: cards,
               total_price: total_price
@@ -38,6 +38,7 @@ exports.getUserCart = function (req, res) {
       } 
     });
   } else {
+    req.session.returnTo = '/i/cart';
     res.redirect('/i/signin');
   }
 };

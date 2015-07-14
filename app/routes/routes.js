@@ -7,8 +7,8 @@ var passport = require('../../config/auth');
 
 var multer  = require('multer');
 var cardMulter = multer({dest: './public/img/cards'});
-var companyName = "Snail Cards";
-var tagline = "Greeting Cards that don't suck";
+var companyName = 'Greeting Cardinal';
+var tagline = 'Greeting Cards that don\'t suck';
 
 
 //Middleware
@@ -42,7 +42,7 @@ router.route('/')
 router.route('/cards/post')
     .post(cardMulter, cardController.postCard);
 
-router.route("/cards/:card_id")
+router.route('/cards/:card_id')
     .get(cardController.getCard);
 
 router.route('/cards/:card_id/edit')
@@ -52,20 +52,20 @@ router.route('/cards/:card_id/edit')
 router.route('/cards/:card_id/delete')
     .post(cardController.postDeleteCard);
 
-router.route("/:username/:card_id/favorite")
+router.route('/:username/:card_id/favorite')
     .post(cardController.postFavoriteCard);
 
 
 /*========================================
 CART
 =========================================*/
-router.route("/i/cart")
+router.route('/i/cart')
     .get(cartController.getUserCart);
 
-router.route("/:username/:card_id/addToCart")
+router.route('/:username/:card_id/addToCart')
     .post(cartController.postAddToCart);
 
-router.route("/:username/:card_id/deleteFromCart")
+router.route('/:username/:card_id/deleteFromCart')
     .post(cartController.postDeleteFromCart);
 
 
@@ -120,8 +120,8 @@ INTERNAL
 router.route('/i/about')
     .get(function (req, res) {
         res.render("../views/pages/about", {
-            doc_title: "About " + companyName, 
-            page_title: "About " + companyName, 
+            docTitle: "About " + companyName, 
+            pageTitle: "About " + companyName, 
         });
     });
 
@@ -131,8 +131,8 @@ router.route('/i/orders')
         Orders.find(function (err, orders) {
             if (!err) {
                 res.render("../views/pages/orders_all", {
-                    doc_title: "Orders " + companyName,
-                    page_title: "Orders " + companyName,
+                    docTitle: "Orders " + companyName,
+                    pageTitle: "Orders " + companyName,
                     orders: orders
                 }); 
             } else {

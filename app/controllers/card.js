@@ -3,11 +3,11 @@
 // Dependency
 var express = require("express");
 var router = express.Router();
-var companyName = "Snail Cards";
-var tagline = "Greeting Cards that don't suck";
+var companyName = 'Greeting Cardinal';
+var tagline = 'Greeting Cards that don\'t suck';
 
 // Models
-var Card = require("../models/cards");
+var Card = require('../models/cards');
 var User = require('../models/users');
 
 
@@ -18,29 +18,35 @@ exports.getPostCard = function (req, res) {
     req.session.returnTo = '/i/post-card';
     return res.redirect('/i/signin');
   }
-  res.render("../views/pages/card_post", {
-    doc_title: "Post a card  \u00B7 " + companyName, 
-    page_title: "Post a card",
+  res.render('../views/pages/card_post', {
+    docTitle: 'Post a card  \u00B7 ' + companyName,
+    pageTitle: 'Post a card',
   });
 }
 
 exports.getEditCard = function (req, res) {
-  if (!req.user) return res.redirect('/i/signin');
+  if (!req.user) {
+    req.session.returnTo = '/cards/' + req.params.card_id + '/edit';
+    return res.redirect('/i/signin');
+  }
   Card.findById(req.params.card_id, function (err, card) {
     if (!err) {
       res.render("../views/pages/card_post", {
-        doc_title: "Edit card  \u00B7 " + companyName, 
-        page_title: "Edit Card",
+        docTitle: "Edit card  \u00B7 " + companyName, 
+        pageTitle: "Edit Card",
         card: card
       });
     } else {
       res.send(err);
-    } 
+    }
   });
 }
 
 exports.postEditCard = function (req, res) {
-  if (!req.user) return res.redirect('/i/signin');
+  if (!req.user) {
+    req.session.returnTo = '/i/post-card';
+    return res.redirect('/i/signin');
+  }
   
   Card.findById(req.params.card_id, function (err, card){
     var imgUrl;
@@ -100,8 +106,8 @@ exports.getAllCards = function (req, res) {
   Card.find().populate('user').exec(function (err, cards) {
     if (!err) {    
       res.render("../views/pages/card_all", {
-        doc_title: companyName + " \u00B7 " + tagline,
-        page_title: "Discover Cards", 
+        docTitle: companyName + " \u00B7 " + tagline,
+        pageTitle: "Discover Cards", 
         cards: cards,
       }); 
     } else {
@@ -121,8 +127,8 @@ exports.getCard = function (req, res) {
       }
       if (!err) {
         res.render("../views/pages/card_single", {
-          doc_title: card.title + " \u00B7 " + companyName,
-          page_title: card.title, 
+          docTitle: card.title + " \u00B7 " + companyName,
+          pageTitle: card.title, 
           card: card,
           user: user,
           isMyCard: isMyCard,
