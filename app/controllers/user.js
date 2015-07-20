@@ -46,12 +46,12 @@ exports.getUserFavorites = function (req, res) {
             sub_title: 'Favorites',
             user: currUser,
             cards: cards
-          }); 
+          });
         } else {
           res.send(err);
         }
-      }); 
-    } 
+      });
+    }
   });
 };
 
@@ -60,16 +60,15 @@ exports.getAllUsers = function (req, res) {
   User.find(function (err, users) {
     if (!err) {
       res.render('../views/pages/users_all', {
-        docTitle: 'Users  \u00B7 ' + companyName, 
+        docTitle: 'Users  \u00B7 ' + companyName,
         pageTitle: 'Browse Users',
         users: users
-      }); 
+      });
     } else {
       res.send(err);
     }
   });
 };
-
 
 //GET Sign in
 exports.getSignin = function (req, res) {
@@ -99,7 +98,7 @@ exports.postSignin = function (req, res, next) {
       return res.redirect('/i/signin');
     }
     if (req.body.remember) {
-      req.session.cookie.maxAge = 1000 * 60 * 3;
+      req.session.cookie.maxAge = 10000000 * 60 * 3;
     } else {
       req.session.cookie.expires = false;
     }
