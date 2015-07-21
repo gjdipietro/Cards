@@ -34,8 +34,8 @@ exports.getUserCart = function (req, res) {
           } else {
             res.send(err);
           }
-        }); 
-      } 
+        });
+      }
     });
   } else {
     req.session.returnTo = '/i/cart';

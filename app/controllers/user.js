@@ -13,7 +13,7 @@ var Card = require('../models/cards');
 var User = require('../models/users');
 
 //GET Profile
-exports.getUser = function (req, res) {
+exports.getUser = function (req, res, next) {
   User.findOne({username: req.params.username}, function (err, currUser) {
     if (currUser) {
       Card.find({user: currUser._id}, function (err, cards) {
@@ -29,9 +29,38 @@ exports.getUser = function (req, res) {
         } else {
           res.send(err);
         }
-      }); 
-    } 
+      });
+    } else {
+      next();
+    }
   });
+};
+
+exports.getEditUser = function (req, res) {
+  if (req.user) {
+    User.findOne({username: req.user.username}, function (err, currUser) {
+      if (currUser) {
+        Card.find({user: currUser._id}, function (err, cards) {
+          if (!err) {
+            res.render('../views/pages/user_edit', {
+              docTitle: 'Edit Profile' + ' \u00B7 ' + companyName,
+              pageTitle: 'Edit Profile',
+              user: currUser,
+            });
+          } else {
+            res.send(err);
+          }
+        });
+      }
+    });
+  } else {
+    req.session.returnTo = '/account';
+    res.redirect('/i/signin');
+  }
+};
+
+exports.postEditUser = function (req, res) {
+  ;
 };
 
 //GET Favorites

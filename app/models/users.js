@@ -5,20 +5,20 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var userSchema = new Schema({
-  email: { 
-    type: String, 
-    unique: true, 
+  email: {
+    type: String,
+    unique: true,
     lowercase: true,
     required: true
   },
   username_display: {
-    type: String, 
-    unique: true, 
+    type: String,
+    unique: true,
     lowercase: true,
   },
   username: {
-    type: String, 
-    unique: true, 
+    type: String,
+    unique: true,
     lowercase: true,
     required: true
   },

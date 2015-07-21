@@ -6,10 +6,13 @@
     <div class="container">
         
         <div class="clearfix">
-            <img src="<%= user.gravatar(120) %>" style="float:left" />
+            <a href="/account/" style="float:right;">Edit</a>
+
+            <img src="<%= user.gravatar(120) %>" style="float:left; margin: 0 20px 0 0" />
             <h1><%= pageTitle %></h1>
             <p><%= user.email %><p>
             <p><%= user.created %><p>
+        
         </div>
         
         <p><%= user.profile.bio %><p>

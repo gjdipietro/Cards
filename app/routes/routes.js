@@ -53,7 +53,7 @@ router.route('/:username/:card_id/favorite')
 /*========================================
 CART
 =========================================*/
-router.route('/i/cart')
+router.route('/cart')
     .get(cartController.getUserCart);
 
 router.route('/:username/:card_id/addToCart')
@@ -67,6 +67,10 @@ PROFILE
 =========================================*/
 router.route('/i/u/')
     .get(userController.getAllUsers);
+
+router.route('/account')
+    .get(userController.getEditUser)
+    .post(userController.postEditUser);
 
 router.route('/:username')
     .get(userController.getUser);
