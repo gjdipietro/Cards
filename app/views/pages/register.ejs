@@ -1,34 +1,38 @@
 <% include ../partials/head %>
 
 <body>
-    <% include ../partials/global_nav %>
 
     <div class="container">
-        <h1><%= pageTitle %></h1>
-        
-        <form accept-charset="UTF-8" method="post">
-        
-			<div class="formGroup formGroup--stacked">
-				<label for="email">Email</label>
-				<input type="email" name="email" id="email" placeholder="No Spam. Ever." tabindex="1" autocorrect="off" autocapitalize="off" autofocus="true" class="input">
-			</div>
+	    <div class="innerWrap">
+	        <h1><a href="/">Greeting Cardinal</a></h1>
+			<h2><%= pageTitle %></h2>
+	        
+	        <form accept-charset="UTF-8" method="post">
+	        
+				<div class="formGroup formGroup--stacked">
+					<label for="email">Email</label>
+					<input type="email" name="email" id="email"  tabindex="1" autocorrect="off" autocapitalize="off" autofocus="true" class="input">
+				</div>
 
-			<div class="formGroup formGroup--stacked">
-				<label for="username">Username</label>
-				<input type="username" name="username" id="username" value="" tabindex="2" autocorrect="off" class="input" >
-			</div>
+				<div class="formGroup formGroup--stacked">
+					<label for="username">Username</label>
+					<input type="username" name="username" id="username" value="" tabindex="2" autocorrect="off" class="input" >
+				</div>
 
-			<div class="formGroup formGroup--stacked">
-				<label for="password">Password</label>
-				<input type="password" name="password" id="password" value="" tabindex="3" autocorrect="off" class="input">
-			</div>
-			
+				<div class="formGroup formGroup--stacked">
+					<label for="password">Password</label>
+					<input type="password" name="password" id="password" value="" tabindex="3" autocorrect="off" class="input">
+				</div>
+				
 
-			<br><br>
-			
-			<input class="btn btn--primary" type="submit"  value="Register" tabindex="4">
+				<br><br>
+				
+				<input class="btn btn--primary" type="submit"  value="Register" tabindex="4">
 
-		</form>
+			</form>
+
+			<p>Have an account? <a href="/i/signin">Sign in</a></p>
+	    </div>
     </div>
 
 

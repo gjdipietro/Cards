@@ -6,48 +6,49 @@
 
 
     <div class="container">
-        <h1><%= pageTitle %></h1>
-        <div>Posted by <a href="/<%=user.username %>"><%= user.username %></a></div>
-        
-        <div><img src="<%=card.image %>"/></div>
-        <div><%=card.description %></div>
-        <div><%=card.date.created %></div>
-        <div><%=card.attr.price %></div>
-        <br>
-        
-        <% if(!auth_user) { %>
-            <%=card.attr.favorites %> Favorites
-        <% } %>
-        
-        
-        <% if(auth_user) { %>
-            <form method="post" action="/<%=auth_user.username %>/<%=card._id %>/favorite">
-                <label for="favorites">Favorites</label>
-                <input type="submit" value="<%=card.attr.favorites %>" id="favorites" />
-                <% if (isFavorite == true) { %> <span> You like it </span> <% } %>
+        <div class="innerWrap">
+            <h1><%= pageTitle %></h1>
+            <div>Posted by <a href="/<%=user.username %>"><%= user.username %></a></div>
+            
+            <div><img src="<%=card.image %>"/></div>
+            <div><%=card.description %></div>
+            <div><%=card.date.created %></div>
+            <div><%=card.attr.price %></div>
+            <br>
+            
+            <% if(!auth_user) { %>
+                <%=card.attr.favorites %> Favorites
+            <% } %>
+            
+            
+            <% if(auth_user) { %>
+                <form method="post" action="/<%=auth_user.username %>/<%=card._id %>/favorite">
+                    <label for="favorites">Favorites</label>
+                    <input type="submit" value="<%=card.attr.favorites %>" id="favorites" />
+                    <% if (isFavorite == true) { %> <span> You like it </span> <% } %>
+                </form>
+                <br><br>
+                <form  method="post" action="/<%=auth_user.username %>/<%=card._id %>/addToCart">
+                    <input type="submit" class="btn btn--primary" value="Add to Cart"  />
+                </form>
+            <% } %>
+
+            <br><br><br>
+            
+            <% if(isMyCard) { %>
+            
+            <a href="cards/<%=card._id %>/edit">Edit Card</a>
+            
+            <br><br><br>
+
+            <form  method="post" action="cards/<%=card._id %>/delete">
+                <input type="submit" value="Delete Card"  />
             </form>
-            <br><br>
-            <form  method="post" action="/<%=auth_user.username %>/<%=card._id %>/addToCart">
-                <input type="submit" class="btn btn--primary" value="Add to Cart"  />
-            </form>
-        <% } %>
-
-        <br><br><br>
-        
-        <% if(isMyCard) { %>
-        
-        <a href="cards/<%=card._id %>/edit">Edit Card</a>
-        
-        <br><br><br>
-
-        <form  method="post" action="cards/<%=card._id %>/delete">
-            <input type="submit" value="Delete Card"  />
-        </form>
 
 
-        <% } %>
+            <% } %>
+        </div>
     </div>
-
     <% include ../partials/footer %>
 
     <script src="jquery/dist/jquery.js"></script>

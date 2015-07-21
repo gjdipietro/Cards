@@ -4,45 +4,45 @@
     <% include ../partials/global_nav %>
 
     <div class="container">
-        
-        <div class="clearfix">
-            <a href="/account/" style="float:right;">Edit</a>
+        <div class="innerWrap">
+            <div class="clearfix">
+                <a href="/account/" style="float:right;">Edit</a>
 
-            <img src="<%= user.gravatar(120) %>" style="float:left; margin: 0 20px 0 0" />
-            <h1><%= pageTitle %></h1>
-            <p><%= user.email %><p>
-            <p><%= user.created %><p>
-        
-        </div>
-        
-        <p><%= user.profile.bio %><p>
-        
-        <a href="/<%= user.username %>/">Posted</a> | 
-        <a href="/<%= user.username %>/Favorites">Favorites</a> 
-        <hr>
+                <img src="<%= user.gravatar(120) %>" style="float:left; margin: 0 20px 0 0" />
+                <h1><%= pageTitle %></h1>
+                <p><%= user.email %></p>
+                <p><%= user.created %></p>
+            
+            </div>
+            
+            <p><%= user.profile.bio %></p>
+            
+            <a href="/<%= user.username %>/">Posted</a> | 
+            <a href="/<%= user.username %>/Favorites">Favorites</a> 
+            
+            <hr>
 
-        <h2><%= sub_title %></h2>
-        <% if(cards.length === 0) { %>
-        <div> Aint got nothing to show ya</div>
-        <% } %>
-        
-        <% if(cards.length >  0) { %>
-        <ul class="clearfix cards">
-            <%  for (var i = 0; i < cards.length; i++) {    %>
-                <li>
-                    <img src="<%= cards[i].image %>" width="200px" height="150px"  />
-                    <br>
-                    <a href="/cards/<%= cards[i]._id %>">
-                        <%= cards[i].title %>
-                    </a>
-                    <br><br>
-                </li>
+            <h2><%= sub_title %></h2>
+            <% if(cards.length === 0) { %>
+            <div> Aint got nothing to show ya</div>
+            <% } %>
+            
+            <% if(cards.length >  0) { %>
+            <ul class="clearfix cards">
+                <%  for (var i = 0; i < cards.length; i++) {    %>
+                    <li>
+                        <img src="<%= cards[i].image %>" width="200px" height="150px"  />
+                        <br>
+                        <a href="/cards/<%= cards[i]._id %>">
+                            <%= cards[i].title %>
+                        </a>
+                        <br><br>
+                    </li>
+                <%  }   %>
+            </ul>
             <%  }   %>
-        </ul>
-        <%  }   %>
-
+        </div>
     </div>
-
     <% include ../partials/footer %>
 
 </body>

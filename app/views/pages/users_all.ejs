@@ -4,22 +4,24 @@
     <% include ../partials/global_nav %>
 
     <div class="container">
-        <h1><%= pageTitle %></h1>
+        <div class="innerWrap">
+            <h1><%= pageTitle %></h1>
 
-        <% if(users.length == 0) { %>
-        <div> Aint got nothing to show ya</div>
-        <% } %>
-        
-        <ul>
-			<%	for (var i = 0; i < users.length; i++) {	%>
-				<li>
-					<a href="/<%= users[i].username %>/">
-                        <%= users[i].username_display || users[i].username %> 
-                    </a>
-                    (<%= users[i]._id %>) <br><br>
-				</li>
-			<%	}	%>
-		</ul>
+            <% if(users.length == 0) { %>
+            <div> Aint got nothing to show ya</div>
+            <% } %>
+            
+            <ul>
+    			<%	for (var i = 0; i < users.length; i++) {	%>
+    				<li>
+    					<a href="/<%= users[i].username %>/">
+                            <%= users[i].username_display || users[i].username %> 
+                        </a>
+                        (<%= users[i]._id %>) <br><br>
+    				</li>
+    			<%	}	%>
+    		</ul>
+        </div>
     </div>
 
     <% include ../partials/footer %>

@@ -1,59 +1,56 @@
 <% include ../partials/head %>
 
 <body>
-    <% include ../partials/global_nav %>
+  <% include ../partials/global_nav %>
 
-    <div class="container">
+  <div class="container">
+    <div class="innerWrap">
         <h1><%= pageTitle %></h1>
-		<form method="post" action="<%= typeof card=='undefined' ? '/cards/post' : '/cards/'+card._id+'/edit' %>"  enctype="multipart/form-data">
-			
-			<div class="formGroup formGroup--stacked">
-				<label for="title">Name your card</label> 
-				<input type="text" 
-					name="title" 
-					class="input" 
-					id="title" 
-					placeholder="Something fun" 
-					value="<%= typeof card!='undefined' ? card.title : '' %>">
-			</div>
+  	<form method="post" action="<%= typeof card=='undefined' ? '/cards/post' : '/cards/'+card._id+'/edit' %>"  enctype="multipart/form-data">
+  		
+  		<div class="formGroup formGroup--stacked">
+  			<label for="title">Name your card</label> 
+  			<input type="text" 
+  				name="title" 
+  				class="input" 
+  				id="title" 
+  				placeholder="Something fun" 
+  				value="<%= typeof card!='undefined' ? card.title : '' %>">
+  		</div>
 
 
-			<div class="formGroup formGroup--stacked">
-				<label for="description">Describe your card</label>
-				<textarea id="description" name="description" class="input"><%= typeof card!='undefined' ? card.description : '' %></textarea>
-			</div>
-				
+  		<div class="formGroup formGroup--stacked">
+  			<label for="description">Describe your card</label>
+  			<textarea id="description" name="description" class="input"><%= typeof card!='undefined' ? card.description : '' %></textarea>
+  		</div>
+  			
 
-			<div class="formGroup formGroup--stacked">
-				<label for="price">Price</label>
-				<input type="text" name="price" class="input" id="price" placeholder="$" value="<%= typeof card!='undefined' ? card.attr.price : '' %>">
-			</div>
+  		<div class="formGroup formGroup--stacked">
+  			<label for="price">Price</label>
+  			<input type="text" name="price" class="input" id="price" placeholder="$" value="<%= typeof card!='undefined' ? card.attr.price : '' %>">
+  		</div>
 
 
-			<div class="formGroup formGroup--stacked">
-				<% if(typeof card!='undefined') { %>
-					<div>
-						<img src="<%= card.image %>" alt="<%= card.title %>" />
-					</div>
-				<% } %>
+  		<div class="formGroup formGroup--stacked">
+  			<% if(typeof card!='undefined') { %>
+  				<div>
+  					<img src="<%= card.image %>" alt="<%= card.title %>" />
+  				</div>
+  			<% } %>
 
-				<label for="image">File</label>
-				<input type="file" id="image" name="image" />
-			</div>
+  			<label for="image">File</label>
+  			<input type="file" id="image" name="image" />
+  		</div>
 
-			<br><br><br>
+  		<br><br><br>
 
-			<div class="formGroup formGroup--stacked">
-				<input type="submit" value="Submit" class="btn btn--primary">
-			</div>
-		</form>
+  		<div class="formGroup formGroup--stacked">
+  			<input type="submit" value="Submit" class="btn btn--primary">
+  		</div>
+  	</form>
 
     </div>
-
-    <% include ../partials/footer %>
-
-    <script src="jquery/dist/jquery.js"></script>
-    <script src="bootstrap/dist/js/bootstrap.js"></script>
-
+  </div>
+  <% include ../partials/footer %>
 </body>
 </html>
