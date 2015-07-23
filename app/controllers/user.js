@@ -16,6 +16,11 @@ var User = require('../models/users');
 exports.getUser = function (req, res, next) {
   User.findOne({username: req.params.username}, function (err, currUser) {
     if (currUser) {
+      var isMyProfile = false;
+      if (req.user) {
+        isMyProfile = currUser._id.equals(req.user._id);
+      }
+
       Card.find({user: currUser._id}, function (err, cards) {
         if (!err) {
           var un = currUser.username_display || currUser.username;
@@ -24,6 +29,7 @@ exports.getUser = function (req, res, next) {
             pageTitle: un,
             sub_title: 'Posted Cards',
             user: currUser,
+            isMyProfile: isMyProfile,
             cards: cards
           }); 
         } else {
@@ -35,6 +41,7 @@ exports.getUser = function (req, res, next) {
     }
   });
 };
+
 
 exports.getEditUser = function (req, res) {
   if (req.user) {

@@ -74,8 +74,11 @@ exports.postEditCard = function (req, res) {
 };
 
 exports.postCard = function (req, res) {
-  if (!req.user) return res.redirect('/i/signin');
-  var imgUrl, card;
+  if (!req.user) {
+    return res.redirect('/i/signin');
+  }
+  var imgUrl;
+  var card;
 
   if (req.files.image && req.files.image.size < 200000) {
       imgUrl = "/img/cards/" + req.files.image.name;
@@ -99,7 +102,7 @@ exports.postCard = function (req, res) {
     } else {
       res.redirect("/cards/" + card._id);
     }
-  }); 
+  });
 };
 
 exports.getAllCards = function (req, res) {

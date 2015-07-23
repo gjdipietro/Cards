@@ -6,7 +6,9 @@
     <div class="container">
         <div class="innerWrap">
             <div class="clearfix">
+                <% if(isMyProfile) { %>
                 <a href="/account/" style="float:right;">Edit</a>
+                <% } %> 
 
                 <img src="<%= user.gravatar(120) %>" style="float:left; margin: 0 20px 0 0" />
                 <h1><%= pageTitle %></h1>
@@ -30,14 +32,14 @@
             <% if(cards.length >  0) { %>
             <ul class="clearfix cards">
                 <%  for (var i = 0; i < cards.length; i++) {    %>
-                    <li>
-                        <img src="<%= cards[i].image %>" width="200px" height="150px"  />
-                        <br>
+                <li>
+                    <div class="wrapper">
                         <a href="/cards/<%= cards[i]._id %>">
-                            <%= cards[i].title %>
+                            <div><img src="<%= cards[i].image %>" width="200px" height="150px"  /></div>
+                            <div><%= cards[i].title %></div>
                         </a>
-                        <br><br>
-                    </li>
+                    </div>
+                </li>
                 <%  }   %>
             </ul>
             <%  }   %>
@@ -47,3 +49,6 @@
 
 </body>
 </html>
+
+
+                
