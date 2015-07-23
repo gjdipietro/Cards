@@ -1,43 +1,49 @@
 <% include ../partials/head %>
 
-<body>
+<body class="pageAuth">
 	<% include ../partials/flash %>
-    <div class="container">
+    <div class="pageAuth--container">
 	    <div class="innerWrap">
-	        	
-	       	<h1><a href="/">Greeting Cardinal</a></h1>
-			<h2><%= pageTitle %></h2>
-	        
-	        <form accept-charset="UTF-8" method="post">
-	        	<!-- Sign in with: <br>
-	        	<a href="/auth/facebook">Facebook</a>
-	        	<a href="/auth/twitter">Twitter</a>
-				<br><br> -->
-				
+	       	<header class="pageAuth--header">
+	         	<h1 class="pageAuth--h1"><a href="/" >Greeting Cardinal</a></h1>
+				<h2 class="pageAuth--h2"><%= pageTitle %></h2>
+	        </header>
+
+	        <form accept-charset="UTF-8" method="post" class="pageAuth--form">
 				<div class="formGroup formGroup--stacked">
 					<label for="username">Username or Email</label>
-					<input type="text" name="username" id="username" value="" tabindex="1" autocorrect="off" autocapitalize="off" autofocus="true" class="input">
+					<input type="text" name="username" id="username" value="" tabindex="1" autocorrect="off" autocapitalize="off" autofocus="true" class="input input__full">
 				</div>
 
 				<div class="formGroup formGroup--stacked">
 					<label for="password">Password</label>
-					<input type="password" name="password" id="password" value="" tabindex="2" class="input">
+					<input type="password" name="password" id="password" value="" tabindex="2" class="input input__full">
 				</div>
 
-				<div class="formGroup formGroup--stacked">
-					<label for="remember">
-						<input type="checkbox" id="remember" name="remember" value="remember" checked="checked"> Remember me
-					</label>
-				</div>
+				<div class="clearfix">
+					<input type="submit" value="Sign In" class="btn btn--primary" tabindex="3" class="pull-left">
 
-				<br><br>
+					<div class="formGroup formGroup--stacked pull-right">
+						<label for="remember">
+							<input type="checkbox" id="remember" name="remember" value="remember" checked="checked"> Remember me
+						</label>
+					</div>
+				</div>
 				
-				<input type="submit" value="Sign In" class="btn btn--primary" tabindex="3">
+				
+				
 			</form>
 
-			<p>Not a member? <a href="/i/register">Register</a></p>
+			<p class="pageAuth--switch">Not a member? <a href="/i/register">Register</a></p>
 
 	    </div>
     </div>
 </body>
 </html>
+
+
+<!-- Sign in with: <br>
+	724B5C
+	<a href="/auth/facebook">Facebook</a>
+	<a href="/auth/twitter">Twitter</a>
+-->
