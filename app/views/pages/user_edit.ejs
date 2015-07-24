@@ -9,39 +9,39 @@
       
       
       <form style="float:left; width: 72%;" accept-charset="UTF-8" method="post" action="/account">
-        <div class="formGroup formGroup--stacked">
+        <div class="formGroup formGroup__stacked">
           <label for="name">Full Name</label>
             <input type="name" name="name" id="name" tabindex="1" autocorrect="off" autocapitalize="off"
               autofocus="true" class="input" 
               value="<%= user.profile.name %>">
         </div>
 
-        <div class="formGroup formGroup--stacked">
+        <div class="formGroup formGroup__stacked">
           <label for="bio">Bio</label>
           <textarea name="bio" id="bio" tabindex="2" autocorrect="off" class="input"><%= user.profile.bio %></textarea>
         </div>
 
-        <div class="formGroup formGroup--stacked">
+        <div class="formGroup formGroup__stacked">
             <label for="location">Location</label>
             <input type="text" name="location" id="location" 
                 value="<%= user.profile.location %>"
                 tabindex="3" autocorrect="off" class="input" >
         </div>
 
-        <div class="formGroup formGroup--stacked">
+        <div class="formGroup formGroup__stacked">
             <label for="website">Website</label>
             <input type="text" name="website" id="website" 
                 value="<%= user.profile.website %>"
                 tabindex="4" autocorrect="off" class="input" >
         </div>
           
-        <input class="btn btn--primary" type="submit"  value="Save" tabindex="5">
+        <input class="btn btn__primary" type="submit"  value="Save" tabindex="5">
       </form>
 
       
       <form style="float:right; width: 22%;" action="/account" enctype="multipart/form-data">
         <div><img src="<%= user.gravatar(120) %>" style="float:left" /> </div>
-        <input class="btn btn--primary" type="submit"  value="Change">
+        <input class="btn btn__primary" type="submit"  value="Change">
       </form>
     </div>
   </div>
