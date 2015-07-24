@@ -1,8 +1,13 @@
 <% include ../partials/head %>
-
+<style>
+.default {
+    float:left; 
+    margin: 0 20px 0 0;
+    background-image: url("/img/assets/defaultavatar.jpg");
+}
+</style>
 <body>
     <% include ../partials/global_nav %>
-
     <div class="container">
         <div class="innerWrap">
             <div class="clearfix">
@@ -10,7 +15,7 @@
                 <a href="/account/" style="float:right;">Edit</a>
                 <% } %> 
 
-                <img src="<%= user.gravatar(120) %>" style="float:left; margin: 0 20px 0 0" />
+                <img src="<%= user.gravatar(120) %>" class="default" height="120px" width="120px" />
                 <h1><%= pageTitle %></h1>
                 <p><%= user.email %></p>
                 <p><%= user.created %></p>
