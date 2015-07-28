@@ -74,13 +74,19 @@ exports.postEditUser = function (req, res) {
 exports.getUserFavorites = function (req, res) {
   User.findOne({username: req.params.username}, function (err, currUser) {
     if (currUser) {
+      var isMyProfile = false;
+      if (req.user) {
+        isMyProfile = currUser._id.equals(req.user._id);
+      }
+
       Card.find({_id : {$in : currUser.favorites}}, function (err, cards) {
         if (!err) {
           res.render('../views/pages/user_single', {
-            docTitle: currUser.username + ' \u00B7 ' + companyName,
+            docTitle: currUser.username,
             pageTitle: currUser.username,
             sub_title: 'Favorites',
             user: currUser,
+            isMyProfile: isMyProfile,
             cards: cards
           });
         } else {
