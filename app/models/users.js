@@ -34,11 +34,11 @@ var userSchema = new Schema({
     website: {type: String, default: ""},
     picture: {type: String, default: ""}
   },
-  created: { 
-    type: Date, 
-    default: Date.now() 
+  created: {
+    type: Date,
+    default: Date.now()
   },
-  powerUser: { 
+  powerUser: {
     type: Boolean,
     default: false
   },

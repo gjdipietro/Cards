@@ -38,7 +38,7 @@ exports.getUserCart = function (req, res) {
       }
     });
   } else {
-    req.session.returnTo = '/i/cart';
+    req.session.returnTo = '/cart';
     res.redirect('/i/signin');
   }
 };
@@ -50,7 +50,7 @@ exports.postAddToCart = function (req, res) {
         user.cart.push(card._id);
         user.save(function (err) {
           if (!err) {
-            res.redirect("/i/cart/");
+            res.redirect("/cart/");
           }
         }); 
       } else {
@@ -71,7 +71,7 @@ exports.postDeleteFromCart = function (req, res) {
         }
         user.save(function (err) {
           if (!err) {
-            res.redirect("/i/cart/");
+            res.redirect("/cart/");
           }
         }); 
       } else {
