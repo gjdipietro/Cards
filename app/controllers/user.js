@@ -23,7 +23,7 @@ exports.getUser = function (req, res, next) {
 
       Card.find({user: currUser._id}, function (err, cards) {
         if (!err) {
-          var un = currUser.username_display || currUser.username;
+          var un = currUser.usernameDisplay || currUser.username;
           res.render('../views/pages/user_single', {
             docTitle: un + ' \u00B7 ' + companyName,
             pageTitle: un,
@@ -41,7 +41,6 @@ exports.getUser = function (req, res, next) {
     }
   });
 };
-
 
 exports.getEditUser = function (req, res) {
   if (req.user) {
@@ -171,7 +170,7 @@ exports.postRegister = function (req, res, next) {
   var query;
   incompleteMsg = 'Please complete the fields.';
   emailTaken = 'An Account with that email address already exists.';
-  usernameTaken = 'An Account with that username address already exists.';
+  usernameTaken = 'An Account with that username already exists.';
 
   req.assert('email', 'Email is not valid').isEmail();
   req.assert('username', 'Username is not valid').len(4);
@@ -189,6 +188,10 @@ exports.postRegister = function (req, res, next) {
     return res.redirect('/i/register');
   }
 
+  if (isInvalidUsername(req.body.username)) {
+    req.flash('error', {msg: usernameTaken});
+    return res.redirect('/i/register');
+  }
   user = new User({
     email : req.body.email,
     username : req.body.username,
@@ -240,3 +243,15 @@ exports.signout = function(req, res) {
         done(err);
     });
     */
+
+
+
+function isInvalidUsername(un) {
+  var invalidUsernames = ['about', 'cart', 'signin', 'signout', 'post-card', 'register', 'search', 'cards', 'card', 'help', 'blog', 'post'];
+  for (var i = 0; i < invalidUsernames.length; i++) {
+    if (invalidUsernames[i] === un) {
+      return true;
+    }
+  }
+  return false;
+}
