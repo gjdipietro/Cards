@@ -28,7 +28,7 @@ router.use(function (req, res, next) {
 /*========================================
 CARDS
 =========================================*/
-router.route('/i/post-card')
+router.route('/post-card')
     .get(cardController.getPostCard);
 
 router.route('/')
@@ -65,7 +65,7 @@ router.route('/:username/:card_id/deleteFromCart')
 /*========================================
 PROFILE
 =========================================*/
-router.route('/i/u/')
+router.route('/u/')
     .get(userController.getAllUsers);
 
 router.route('/account')
@@ -81,15 +81,15 @@ router.route('/:username/favorites')
 /*========================================
 SIGN IN AND REGISTER
 =========================================*/
-router.route('/i/register')
+router.route('/register')
     .get(userController.getRegister)
     .post(cleanBody, userController.postRegister);
 
-router.route('/i/signin')
+router.route('/signin')
     .get(userController.getSignin)
     .post(cleanBody, userController.postSignin);
 
-router.route('/i/signout')
+router.route('/signout')
     .get(userController.signout);
 
 router.route('/auth/facebook')
@@ -109,7 +109,7 @@ router.route('/auth/twitter/callback')
 /*========================================
 INTERNAL
 =========================================*/
-router.route('/i/about')
+router.route('/about')
     .get(function (req, res) {
       res.render('../views/pages/about', {
         docTitle: 'About ' + companyName, 
@@ -118,7 +118,7 @@ router.route('/i/about')
     });
 
 var Orders = require('../models/orders');
-router.route('/i/orders')
+router.route('/orders')
     .get(function (req, res) {
       Orders.find(function (err, orders) {
         if (!err) {

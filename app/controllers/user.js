@@ -61,7 +61,7 @@ exports.getEditUser = function (req, res) {
     });
   } else {
     req.session.returnTo = '/account';
-    res.redirect('/i/signin');
+    res.redirect('/signin');
   }
 };
 
@@ -128,7 +128,7 @@ exports.postSignin = function (req, res, next) {
   req.assert('password', 'Password cannot be blank').notEmpty();
   if (errors) {
     req.flash('error', errors);
-    return res.redirect('/i/signin');
+    return res.redirect('/signin');
   }
   passport.authenticate('local', function (err, user, info) {
     if (err) {
@@ -136,7 +136,7 @@ exports.postSignin = function (req, res, next) {
     }
     if (!user) {
       req.flash('error', {msg: info.message});
-      return res.redirect('/i/signin');
+      return res.redirect('/signin');
     }
     if (req.body.remember) {
       req.session.cookie.maxAge = 10000000 * 60 * 3;
@@ -180,17 +180,17 @@ exports.postRegister = function (req, res, next) {
 
   if (errors) {
     req.flash('error', errors);
-    return res.redirect('/i/register');
+    return res.redirect('/register');
   }
 
   if (!req.body.email || !req.body.username || !req.body.password) {
     req.flash('error', {msg: incompleteMsg});
-    return res.redirect('/i/register');
+    return res.redirect('/register');
   }
 
   if (isInvalidUsername(req.body.username)) {
     req.flash('error', {msg: usernameTaken});
-    return res.redirect('/i/register');
+    return res.redirect('/register');
   }
   user = new User({
     email : req.body.email,
@@ -202,7 +202,7 @@ exports.postRegister = function (req, res, next) {
   query.findOne(function (err, existingUser) {
     if (existingUser || err) {
       req.flash('error', {msg: 'The email or username is taken!'});
-      return res.redirect('/i/register');
+      return res.redirect('/register');
     }
     user.save(function (err) {
       if (err) {
@@ -247,7 +247,7 @@ exports.signout = function(req, res) {
 
 
 function isInvalidUsername(un) {
-  var invalidUsernames = ['about', 'cart', 'account', 'signin', 'signout', 'post-card', 'register', 'search', 'cards', 'card', 'help', 'blog', 'post'];
+  var invalidUsernames = ['about', 'cart', 'orders', 'account', 'signin', 'signout', 'post-card', 'register', 'search', 'cards', 'card', 'help', 'blog', 'post'];
   for (var i = 0; i < invalidUsernames.length; i++) {
     if (invalidUsernames[i] === un) {
       return true;

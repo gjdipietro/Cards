@@ -28,7 +28,8 @@ a:hover {
 }
 
 .innerWrap {
-  padding: 20px 12px 30px 12px
+  padding: 16px 0 48px 0;
+  padding: 1em 0 4em 0;
 }
 .layout_nav {
     background:#FFF;
@@ -96,8 +97,21 @@ a:hover {
 }
 
 h1, h2, h3, h4, p {
-    margin: 0 0 .25em 0;
+    margin: 0 0  1em 0;
 }
+
+
+.pTitleHeader {
+  margin-bottom: 1em;
+}
+.pTitleHeader--title {
+  margin-bottom: 0;
+}
+.pTitleHeader--caption {
+  margin-bottom: 0;
+}
+
+
 
 .storyContent h1, 
 .storyContent h2, 
@@ -255,10 +269,6 @@ img {
 }
 .pageAuth--switch {
   text-align: center;
-}
-
-.pageAuth--header {
-  margin-bottom: 2em;
 }
 
 .pageAuth--h2 {

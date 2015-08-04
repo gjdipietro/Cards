@@ -39,7 +39,7 @@ exports.getUserCart = function (req, res) {
     });
   } else {
     req.session.returnTo = '/cart';
-    res.redirect('/i/signin');
+    res.redirect('/signin');
   }
 };
 

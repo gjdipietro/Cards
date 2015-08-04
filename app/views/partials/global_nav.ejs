@@ -1,3 +1,21 @@
+<style>
+	.ribbon {
+		background: url(data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22500%22%3E%3Crect%20x%3D%220%22%20width%3D%224%22%20height%3D%22100%25%22%20style%3D%22fill%3A%23172327%22%2F%3E%3Crect%20x%3D%224%22%20width%3D%2273%22%20height%3D%22100%25%22%20style%3D%22fill%3A%2319372c%22%2F%3E%3Crect%20x%3D%2277%22%20width%3D%2230%22%20height%3D%22100%25%22%20style%3D%22fill%3A%23327344%22%2F%3E%3Crect%20x%3D%22107%22%20width%3D%226%22%20height%3D%22100%25%22%20style%3D%22fill%3A%23437e4c%22%2F%3E%3Crect%20x%3D%22113%22%20width%3D%2211%22%20height%3D%22100%25%22%20style%3D%22fill%3A%23869956%22%2F%3E%3Crect%20x%3D%22124%22%20width%3D%2236%22%20height%3D%22100%25%22%20style%3D%22fill%3A%23b08f42%22%2F%3E%3Crect%20x%3D%22160%22%20width%3D%2257%22%20height%3D%22100%25%22%20style%3D%22fill%3A%23b46839%22%2F%3E%3Crect%20x%3D%22217%22%20width%3D%2218%22%20height%3D%22100%25%22%20style%3D%22fill%3A%23a43941%22%2F%3E%3Crect%20x%3D%22235%22%20width%3D%223%22%20height%3D%22100%25%22%20style%3D%22fill%3A%239c2c52%22%2F%3E%3Crect%20x%3D%22238%22%20width%3D%223%22%20height%3D%22100%25%22%20style%3D%22fill%3A%23bb426b%22%2F%3E%3Crect%20x%3D%22241%22%20width%3D%2275%22%20height%3D%22100%25%22%20style%3D%22fill%3A%238a2f5c%22%2F%3E%3Crect%20x%3D%22316%22%20width%3D%2224%22%20height%3D%22100%25%22%20style%3D%22fill%3A%236d416d%22%2F%3E%3Crect%20x%3D%22340%22%20width%3D%2242%22%20height%3D%22100%25%22%20style%3D%22fill%3A%23413264%22%2F%3E%3Crect%20x%3D%22382%22%20width%3D%222%22%20height%3D%22100%25%22%20style%3D%22fill%3A%2329416e%22%2F%3E%3Crect%20x%3D%22384%22%20width%3D%2226%22%20height%3D%22100%25%22%20style%3D%22fill%3A%235690a5%22%2F%3E%3Crect%20x%3D%22410%22%20width%3D%2210%22%20height%3D%22100%25%22%20style%3D%22fill%3A%232e849d%22%2F%3E%3Crect%20x%3D%22420%22%20width%3D%2248%22%20height%3D%22100%25%22%20style%3D%22fill%3A%23276686%22%2F%3E%3Crect%20x%3D%22468%22%20width%3D%2226%22%20height%3D%22100%25%22%20style%3D%22fill%3A%2323436e%22%2F%3E%3Crect%20x%3D%22494%22%20width%3D%226%22%20height%3D%22100%25%22%20style%3D%22fill%3A%23142a06%22%2F%3E%3C%2Fsvg%3E%0A) repeat-x top left;
+		height: 5px;
+		display: block;
+   		width: 100%;
+	}
+	.ir {
+		font: 0/0 serif;
+    	text-shadow: none;
+    	color: transparent;
+	}
+	.logo {
+		vertical-align: middle; 
+		height: 30px;
+	}
+</style>
+<div class="ribbon"></div>
 <header class="layout_nav">
     <div class="container">
     	<div class="clearfix">
@@ -12,15 +30,18 @@
 		        			(<%= auth_user.cart.length %>)
 		        		<% } %>
 		        	</a>
-		        	<a href="/i/post-card">Post Card</a>
-		        	<a href="/i/signout">Sign out</a>
+		        	<a href="/post-card">Post Card</a>
+		        	<a href="/signout">Sign out</a>
 		        <% } 
 		        else {  %>
-		        	<a href="/i/signin">Sign In</a>
-	    			<a href="/i/register">Register</a>
+		        	<a href="/signin">Sign In</a>
+	    			<a href="/register">Register</a>
 				<% } %>
 	    	</div>
-	        <a href="/">Cards</a> 
+	        <a href="/" >
+	        	<img src="https://bocoup.com/img/site/bocoup-50.png" class="logo"> 
+	        	<span class="ir">Greeting Rooster</span>
+	        </a> 
         </div>
     </div>
 </header>

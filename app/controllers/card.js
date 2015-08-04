@@ -10,13 +10,10 @@ var tagline = 'Greeting Cards that don\'t suck';
 var Card = require('../models/cards');
 var User = require('../models/users');
 
-
-
-
 exports.getPostCard = function (req, res) {
   if (!req.user) {
-    req.session.returnTo = '/i/post-card';
-    return res.redirect('/i/signin');
+    req.session.returnTo = '/post-card';
+    return res.redirect('/signin');
   }
   res.render('../views/pages/card_post', {
     docTitle: 'Post a card  \u00B7 ' + companyName,
@@ -27,7 +24,7 @@ exports.getPostCard = function (req, res) {
 exports.getEditCard = function (req, res) {
   if (!req.user) {
     req.session.returnTo = '/cards/' + req.params.card_id + '/edit';
-    return res.redirect('/i/signin');
+    return res.redirect('/signin');
   }
   Card.findById(req.params.card_id, function (err, card) {
     if (!err) {
@@ -44,13 +41,11 @@ exports.getEditCard = function (req, res) {
 
 exports.postEditCard = function (req, res) {
   if (!req.user) {
-    req.session.returnTo = '/i/post-card';
-    return res.redirect('/i/signin');
+    req.session.returnTo = '/post-card';
+    return res.redirect('/signin');
   }
-  
-  Card.findById(req.params.card_id, function (err, card){
+  Card.findById(req.params.card_id, function (err, card) {
     var imgUrl;
-    
     if (req.files.image && req.files.image.size < 200000) {
       imgUrl = "/img/cards/" + req.files.image.name;
     } else {
@@ -68,20 +63,20 @@ exports.postEditCard = function (req, res) {
       } else {
         res.redirect("/cards/" + card._id);
       }
-    }); 
+    });
   });
 
 };
 
 exports.postCard = function (req, res) {
   if (!req.user) {
-    return res.redirect('/i/signin');
+    return res.redirect('/signin');
   }
   var imgUrl;
   var card;
 
   if (req.files.image && req.files.image.size < 200000) {
-      imgUrl = "/img/cards/" + req.files.image.name;
+    imgUrl = "/img/cards/" + req.files.image.name;
   } else {
     imgUrl = "/img/cards/default.png";
   }
@@ -181,7 +176,7 @@ exports.postFavoriteCard = function (req, res) {
             if (!err) {
               res.redirect("/cards/" + card._id);
             }
-          })  
+          })
         });
       } else {
         res.redirect("/cards/" + card._id);
@@ -189,5 +184,4 @@ exports.postFavoriteCard = function (req, res) {
     });
   });
 }
-
 

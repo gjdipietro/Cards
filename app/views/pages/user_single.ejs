@@ -10,18 +10,18 @@
     <% include ../partials/global_nav %>
     <div class="container">
         <div class="innerWrap">
-            <div class="clearfix">
+            
+            <header class="pTitleHeader clearfix">
                 <% if(isMyProfile) { %>
                 <a href="/account/" style="float:right;">Edit</a>
                 <% } %> 
 
                 <img src="<%= user.gravatar(120) %>" class="default" height="120px" width="120px" />
-                <h1><%= pageTitle %></h1>
-                <p><%= user.email %></p>
-                <p><%= user.created %></p>
-            
-            </div>
-            
+                <h1 class="pTitleHeader--title"><%= pageTitle %></h1>
+                <p class="pTitleHeader--caption"><%= user.email %></p>
+                <p class="pTitleHeader--caption"><%= user.created %></p>
+            </header>
+
             <p><%= user.profile.bio %></p>
             
             <a href="/<%= user.username %>/">Posted</a> | 

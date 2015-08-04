@@ -7,9 +7,11 @@
 
     <div class="container">
         <div class="innerWrap">
-            <h1><%= pageTitle %></h1>
-            <div>Posted by <a href="/<%=user.username %>"><%= user.username %></a></div>
-            
+            <header class="pTitleHeader">
+                <h1 class="pTitleHeader--title"><%= pageTitle %></h1>
+                <div class="pTitleHeader--caption">Posted by <a href="/<%=user.username %>"><%= user.username %></a></div>
+            </header>
+
             <div><img src="<%=card.image %>"/></div>
             <div><%=card.description %></div>
             <div><%=card.date.created %></div>
