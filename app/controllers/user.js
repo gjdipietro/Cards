@@ -247,7 +247,7 @@ exports.signout = function(req, res) {
 
 
 function isInvalidUsername(un) {
-  var invalidUsernames = ['about', 'cart', 'signin', 'signout', 'post-card', 'register', 'search', 'cards', 'card', 'help', 'blog', 'post'];
+  var invalidUsernames = ['about', 'cart', 'account', 'signin', 'signout', 'post-card', 'register', 'search', 'cards', 'card', 'help', 'blog', 'post'];
   for (var i = 0; i < invalidUsernames.length; i++) {
     if (invalidUsernames[i] === un) {
       return true;
