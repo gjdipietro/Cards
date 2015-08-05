@@ -1,7 +1,7 @@
 'use strict';
 
 // Dependency
-var express = require("express");
+var express = require('express');
 var router = express.Router();
 var companyName = 'Greeting Cardinal';
 var tagline = 'Greeting Cards that don\'t suck';
@@ -152,26 +152,26 @@ exports.getCard = function (req, res) {
       }  
     });
   });
-}
+};
 
 exports.postDeleteCard = function (req, res) {
   Card.findById(req.params.card_id, function (err, card) {
     if (!req.user) {
-      res.redirect("/cards/" + card._id);
+      res.redirect('/cards/' + card._id);
     } else {
       if (card.user.equals(req.user._id)) {
         Card.remove({_id: req.params.card_id}, function(err, card) {
           if (err) {
             res.send(err);
-          } else {               
-            res.redirect("/" + req.user.username);
+          } else {
+            res.redirect('/' + req.user.username);
           }
         });
       } else {
-        res.redirect("/cards/" + card._id);
+        res.redirect('/cards/' + card._id);
       }
     }
-  })
+  });
 };
 
 exports.postFavoriteCard = function (req, res) {
@@ -198,5 +198,5 @@ exports.postFavoriteCard = function (req, res) {
       }
     });
   });
-}
+};
 
