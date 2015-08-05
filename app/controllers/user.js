@@ -49,8 +49,8 @@ exports.getEditUser = function (req, res) {
         Card.find({user: currUser._id}, function (err, cards) {
           if (!err) {
             res.render('../views/pages/user_edit', {
-              docTitle: 'Edit Profile' + ' \u00B7 ' + companyName,
-              pageTitle: 'Edit Profile',
+              docTitle: 'Settings' + ' \u00B7 ' + companyName,
+              pageTitle: 'Settings',
               user: currUser,
             });
           } else {
@@ -59,14 +59,30 @@ exports.getEditUser = function (req, res) {
         });
       }
     });
-  } else {
+  }
+  else {
     req.session.returnTo = '/account';
     res.redirect('/signin');
   }
 };
 
 exports.postEditUser = function (req, res) {
-  ;
+  //make sure user is doing this to themselves
+  User.findById(req.user._id, function (err, user) {
+    if (user) {
+      user.profile.name = req.body.name;
+      user.profile.bio = req.body.bio;
+      user.profile.location = req.body.location;
+      user.profile.website = req.body.website;
+      user.save(function (err) {
+        if (err) {
+          res.send(err);
+        } else {
+          res.redirect('/account');
+        }
+      });
+    }
+  });
 };
 
 //GET Favorites
@@ -244,10 +260,8 @@ exports.signout = function(req, res) {
     });
     */
 
-
-
 function isInvalidUsername(un) {
-  var invalidUsernames = ['about', 'cart', 'orders', 'account', 'signin', 'signout', 'post-card', 'register', 'search', 'cards', 'card', 'help', 'blog', 'post'];
+  var invalidUsernames = ['edit', 'settings', 'about', 'cart', 'orders', 'account', 'signin', 'signout', 'post-card', 'register', 'search', 'cards', 'card', 'help', 'blog', 'post'];
   for (var i = 0; i < invalidUsernames.length; i++) {
     if (invalidUsernames[i] === un) {
       return true;

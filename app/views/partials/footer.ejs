@@ -3,6 +3,9 @@
   <div class="goldHover">&copy; Cardinal</div>
   <div class="blackHover">Proudly Made</div>
   <div class="goldHover">In Pittsburgh, PA</div>
+  <% if(auth_user) { %>
+    <a href="/signout">Sign out</a>
+  <% } %> 
 </footer>
 
 <style>

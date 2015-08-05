@@ -22,7 +22,10 @@
                 <p class="pTitleHeader--caption"><%= user.created %></p>
             </header>
 
+            <p><%= user.profile.name %></p>
             <p><%= user.profile.bio %></p>
+            <p><%= user.profile.website %></p>
+            <p><%= user.profile.location %></p>
             
             <a href="/<%= user.username %>/">Posted</a> | 
             <a href="/<%= user.username %>/Favorites">Favorites</a> 

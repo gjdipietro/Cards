@@ -8,10 +8,21 @@
       <h1><%= pageTitle %></h1>
       
       
-      <form style="float:left; width: 72%;" accept-charset="UTF-8" method="post" action="/account">
+      <form accept-charset="UTF-8" method="post" action="/account">
+        
+        <div class="formGroup formGroup__stacked">
+          <label for="name">Profile Picture</label>
+          <div class="clearfix">
+            <div style="float:left;"><img src="<%= user.gravatar(64) %>"  /> </div>
+            <div style="float:left;float: left; width: 340px; margin-left: 20px;">
+              <input class="btn btn__secondary" type="button" value="Change">
+            </div>
+          </div>
+        </div>
+
         <div class="formGroup formGroup__stacked">
           <label for="name">Full Name</label>
-            <input type="name" name="name" id="name" tabindex="1" autocorrect="off" autocapitalize="off"
+          <input type="name" name="name" id="name" tabindex="1" autocorrect="off" autocapitalize="off"
               autofocus="true" class="input" 
               value="<%= user.profile.name %>">
         </div>
@@ -30,18 +41,12 @@
 
         <div class="formGroup formGroup__stacked">
             <label for="website">Website</label>
-            <input type="text" name="website" id="website" 
+            <input type="url" name="website" id="website" 
                 value="<%= user.profile.website %>"
                 tabindex="4" autocorrect="off" class="input" >
         </div>
           
         <input class="btn btn__primary" type="submit"  value="Save" tabindex="5">
-      </form>
-
-      
-      <form style="float:right; width: 22%;" action="/account" enctype="multipart/form-data">
-        <div><img src="<%= user.gravatar(120) %>" style="float:left" /> </div>
-        <input class="btn btn__primary" type="submit"  value="Change">
       </form>
     </div>
   </div>

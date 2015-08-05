@@ -19,25 +19,30 @@ exports.getPostCard = function (req, res) {
     docTitle: 'Post a card  \u00B7 ' + companyName,
     pageTitle: 'Post a card',
   });
-}
+};
 
 exports.getEditCard = function (req, res) {
-  if (!req.user) {
-    req.session.returnTo = '/cards/' + req.params.card_id + '/edit';
-    return res.redirect('/signin');
-  }
   Card.findById(req.params.card_id, function (err, card) {
-    if (!err) {
-      res.render("../views/pages/card_post", {
-        docTitle: "Edit card  \u00B7 " + companyName, 
-        pageTitle: "Edit Card",
-        card: card
-      });
-    } else {
-      res.send(err);
-    }
+    User.findById(card.user, function (err, user) {
+      var isMyCard = false;
+      if (req.user) {
+        isMyCard = card.user.equals(req.user._id);
+      } else {
+        req.session.returnTo = '/cards/' + req.params.card_id + '/edit';
+        return res.redirect('/signin');
+      }
+      if (!err && isMyCard) {
+        res.render("../views/pages/card_post", {
+          docTitle: "Edit card  \u00B7 " + companyName, 
+          pageTitle: "Edit Card",
+          card: card
+        });
+      } else {
+        return res.redirect('/cards/' + req.params.card_id);
+      }
+    });
   });
-}
+};
 
 exports.postEditCard = function (req, res) {
   if (!req.user) {
@@ -45,27 +50,37 @@ exports.postEditCard = function (req, res) {
     return res.redirect('/signin');
   }
   Card.findById(req.params.card_id, function (err, card) {
-    var imgUrl;
-    if (req.files.image && req.files.image.size < 200000) {
-      imgUrl = "/img/cards/" + req.files.image.name;
-    } else {
-      imgUrl = card.image;
-    }
-
-    card.title = req.body.title;
-    card.description = req.body.description;
-    card.attr.price = req.body.price;
-    card.image = imgUrl;
-
-    card.save(function (err) {
-      if (err) {
-        res.send(err);
+    User.findById(card.user, function (err, user) {
+      var isMyCard = false;
+      if (req.user) {
+        isMyCard = card.user.equals(req.user._id);
       } else {
-        res.redirect("/cards/" + card._id);
+        req.session.returnTo = '/cards/' + req.params.card_id + '/edit';
+        return res.redirect('/signin');
+      }
+      if (!err && isMyCard) {
+        var imgUrl;
+        if (req.files.image && req.files.image.size < 200000) {
+          imgUrl = "/img/cards/" + req.files.image.name;
+        } else {
+          imgUrl = card.image;
+        }
+
+        card.title = req.body.title;
+        card.description = req.body.description;
+        card.attr.price = req.body.price;
+        card.image = imgUrl;
+
+        card.save(function (err) {
+          if (err) {
+            res.send(err);
+          } else {
+            res.redirect("/cards/" + card._id);
+          }
+        });
       }
     });
   });
-
 };
 
 exports.postCard = function (req, res) {
@@ -112,7 +127,7 @@ exports.getAllCards = function (req, res) {
       res.send(err);
     }
   });
-}
+};
 
 exports.getCard = function (req, res) {
   Card.findById(req.params.card_id, function (err, card) {
