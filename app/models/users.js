@@ -52,9 +52,7 @@ var userSchema = new Schema({
   orders: {
     type: Array,
   }
-
 });
-
 
 //Password hash middleware.
 userSchema.pre('save', function(next) {

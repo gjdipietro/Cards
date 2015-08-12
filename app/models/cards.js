@@ -1,45 +1,47 @@
-var mongoose = require("mongoose");
+'use strict';
+
+var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var cardSchema = new Schema({
-    user: {
-        type: Schema.Types.ObjectId, 
-        ref: 'User'
+  user: {
+    type: Schema.Types.ObjectId,
+    ref: 'User'
+  },
+  title: {
+    type: String,
+    default: ''
+  },
+  description: {
+    type: String, 
+    default: ''
+  },
+  image: {
+    type: String, 
+    default: ''
+  },
+  approved: {
+    type: Boolean, 
+    default: false
+  },
+  attr: {
+    price: {
+      type: Number,
     },
-    title: {
-        type: String, 
-        default: ""
-    },
-    description: {
-        type: String, 
-        default: ""
-    },
-    image: {
-        type: String, 
-        default: ""
+    favorites: {
+      type: Number,
+      default: '0'
+    }
+  },
+  date: {
+    created: {
+      type: Date,
+      default: Date.now()
     },
     approved: {
-        type: Boolean, 
-        default: false
+      type: Date
     },
-    attr: {
-        price: {
-            type: Number,
-        },
-        favorites: {
-            type: Number,
-            default: "0"
-        }
-    },
-    date: {
-        created: { 
-            type: Date, 
-            default: Date.now() 
-        },
-        approved: { 
-            type: Date 
-        },
-    }
+  }
 });
 
-module.exports = mongoose.model("Card", cardSchema);
+module.exports = mongoose.model('Card', cardSchema);
