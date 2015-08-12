@@ -50,11 +50,15 @@ exports.postAddToCart = function (req, res) {
         user.cart.push(card._id);
         user.save(function (err) {
           if (!err) {
-            res.redirect("/cart/");
+            res.cookie('cart', req.params.card_id, {
+              maxAge: 900000,
+              httpOnly: true
+            });
+            res.redirect('/cart/');
           }
-        }); 
+        });
       } else {
-        res.redirect("/cards/" + card._id);
+        res.redirect('/cards/' + card._id);
       }
     });
   });
@@ -64,18 +68,18 @@ exports.postDeleteFromCart = function (req, res) {
   Card.findById(req.params.card_id, function (err, card) {
     User.findById(req.user, function (err, user) {
       if (!err) {
-        for (var i=user.cart.length-1; i>=0; i--) {
+        for (var i = user.cart.length - 1; i >= 0; i--) {
           if (user.cart[i].equals(card._id)) {
             user.cart.splice(i, 1);
           }
         }
         user.save(function (err) {
           if (!err) {
-            res.redirect("/cart/");
+            res.redirect('/cart/');
           }
-        }); 
+        });
       } else {
-        res.redirect("/cards/" + card._id);
+        res.redirect('/cards/' + card._id);
       }
     });
   });

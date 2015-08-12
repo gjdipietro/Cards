@@ -10,7 +10,7 @@ var bodyParser = require('body-parser');
 var multer  = require('multer');
 var path = require('path');
 var flash = require('express-flash');
-
+var cookieParser = require('cookie-parser')
 var mongoose = require('mongoose');
 var expressValidator = require('express-validator');
 
@@ -41,7 +41,7 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'app/views')); 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(compress());
-
+app.use(cookieParser());
 // Passport and configuration
 
 app.use(flash());
