@@ -20,17 +20,17 @@ exports.getUserCart = function (req, res) {
       if (currUser) {
         Card.find({_id : {$in : currUser.cart}}, function (err, cards) {
           if (!err) {
-            var total_price = 0;
+            var totalPrice = 0;
             for (var i = 0; i < cards.length; i++) {
-              total_price += parseFloat(cards[i].attr.price);
+              totalPrice += parseFloat(cards[i].attr.price);
             }
-            res.render("../views/pages/cart", {
-              docTitle: 'My Cart ' + companyName, 
+            res.render('../views/pages/cart', {
+              docTitle: 'My Cart ' + companyName,
               pageTitle: 'My Cart',
               user: currUser,
               cards: cards,
-              total_price: total_price
-            }); 
+              totalPrice: totalPrice,
+            });
           } else {
             res.send(err);
           }
@@ -50,7 +50,14 @@ exports.postAddToCart = function (req, res) {
         user.cart.push(card._id);
         user.save(function (err) {
           if (!err) {
-            res.cookie('cart', req.params.card_id, {
+            var cartCookie;
+            if (req.cookies.cart) {
+              cartCookie = req.cookies.cart;
+            } else {
+              cartCookie = [];
+            }
+            cartCookie.push(req.params.card_id);
+            res.cookie('cart', cartCookie, {
               maxAge: 900000,
               httpOnly: true
             });

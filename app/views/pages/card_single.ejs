@@ -22,7 +22,6 @@
                 <%=card.attr.favorites %> Favorites
             <% } %>
             
-            
             <% if(auth_user) { %>
                 <form method="post" action="/<%=auth_user.username %>/<%=card._id %>/favorite">
                     <label for="favorites">Favorites</label>
@@ -36,6 +35,7 @@
             <% } %>
 
             <br><br><br>
+
             
             <% if(isMyCard) { %>
             
