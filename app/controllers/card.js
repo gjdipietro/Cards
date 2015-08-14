@@ -61,7 +61,7 @@ exports.postEditCard = function (req, res) {
       if (!err && isMyCard) {
         var imgUrl;
         if (req.files.image && req.files.image.size < 200000) {
-          imgUrl = "/img/cards/" + req.files.image.name;
+          imgUrl = '/img/cards/' + req.files.image.name;
         } else {
           imgUrl = card.image;
         }

@@ -70,6 +70,13 @@ exports.postEditUser = function (req, res) {
   //make sure user is doing this to themselves
   User.findById(req.user._id, function (err, user) {
     if (user) {
+
+      if (req.files.picture && req.files.picture.size < 2000000) {
+        var imgUrl;
+        imgUrl = '/img/avatars/' + req.files.picture.name;
+        user.profile.picture = imgUrl;
+      }
+
       user.profile.name = req.body.name;
       user.profile.bio = req.body.bio;
       user.profile.location = req.body.location;

@@ -8,6 +8,8 @@ var sanitize = require('mongo-sanitize');
 
 var multer  = require('multer');
 var cardMulter = multer({dest: './public/img/cards'});
+var avatarMulter = multer({dest: './public/img/avatars'});
+
 var companyName = 'Greeting Cardinal';
 var tagline = 'Greeting Cards that don\'t suck';
 
@@ -70,7 +72,7 @@ router.route('/u/')
 
 router.route('/account')
     .get(userController.getEditUser)
-    .post(userController.postEditUser);
+    .post(avatarMulter, cleanBody, userController.postEditUser);
 
 router.route('/:username')
     .get(userController.getUser);

@@ -16,7 +16,7 @@
                 <a href="/account/" style="float:right;">Edit</a>
                 <% } %> 
 
-                <img src="<%= user.gravatar(120) %>" class="default" height="120px" width="120px" />
+                <img src="<%= user.profile.picture || user.gravatar(120) %>" class="default" height="120px" width="120px" />
                 <h1 class="pTitleHeader--title"><%= pageTitle %></h1>
                 <p class="pTitleHeader--caption"><%= user.email %></p>
                 <p class="pTitleHeader--caption"><%= user.created %></p>

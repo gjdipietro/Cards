@@ -8,14 +8,16 @@
       <h1><%= pageTitle %></h1>
       
       
-      <form accept-charset="UTF-8" method="post" action="/account">
+      <form accept-charset="UTF-8" method="post" action="/account" enctype="multipart/form-data">
         
         <div class="formGroup formGroup__stacked">
           <label for="name">Profile Picture</label>
           <div class="clearfix">
-            <div style="float:left;"><img src="<%= user.gravatar(64) %>"  /> </div>
+
+            <div style="float:left;"><img src="<%= user.profile.picture || user.gravatar(64) %>"  /> </div>
             <div style="float:left;float: left; width: 340px; margin-left: 20px;">
-              <input class="btn btn__secondary" type="button" value="Change">
+              <input type="file" name="picture" id="fileControl" style="display:none;">
+              <input class="btn btn__secondary" type="button" value="Change" onclick="document.getElementById('fileControl').click()">
             </div>
           </div>
         </div>

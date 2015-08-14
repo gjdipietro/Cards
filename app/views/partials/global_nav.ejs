@@ -22,7 +22,7 @@
 	    	<div class="credentials">
 	    		<% if(auth_user) { %>
 		        	<a href="/<%= auth_user.username %>/"> 
-			        	<img src="<%= auth_user.gravatar(32)%>">
+			        	<img src="<%= auth_user.profile.picture || auth_user.gravatar(32)%>" height="32px">
 		        	</a>
 		        	<a href="/cart">
 		        		Cart 
