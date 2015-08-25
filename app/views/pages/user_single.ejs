@@ -11,46 +11,47 @@
     <div class="container">
         <div class="innerWrap">
             
-            <header class="pTitleHeader clearfix">
-                <% if(isMyProfile) { %>
-                <a href="/account/" style="float:right;">Edit</a>
-                <% } %> 
+            <header class="clearfix module_card" style="float:left; width:30%;  margin-right: 3%; text-align: center;">
+                <img src="<%= user.gravatar(120) %>" height="120px" width="120px" 
+                style="border: 5px solid #EEEEEE;" />
+                <h1 style="font-size:22px; color:#333; margin-bottom:12px;"><%= pageTitle %></h1>
+                <p style="font-size:14px; color:#999; margin-bottom:12px;"><%= user.profile.location %></p>
+                <p style="font-size:14px; color:#999; margin-bottom:12px;"><%= user.profile.name %></p>
+                <p style="font-size:14px;"><%= user.profile.bio %></p>
 
-                <img src="<%= user.profile.picture || user.gravatar(120) %>" class="default" height="120px" width="120px" />
-                <h1 class="pTitleHeader--title"><%= pageTitle %></h1>
-                <p class="pTitleHeader--caption"><%= user.email %></p>
-                <p class="pTitleHeader--caption"><%= user.created %></p>
+                <% if(isMyProfile) { %>
+                <footer>
+                    <a href="/account/" style="float:right;">Edit</a>
+                </footer> 
+                <% } %>
             </header>
 
-            <p><%= user.profile.name %></p>
-            <p><%= user.profile.bio %></p>
-            <p><%= user.profile.website %></p>
-            <p><%= user.profile.location %></p>
-            
-            <a href="/<%= user.username %>/">Posted</a> | 
-            <a href="/<%= user.username %>/Favorites">Favorites</a> 
-            
-            <hr>
+            <section class="pTitleHeader" style="float:left; width: 67%">
+                <a href="/<%= user.username %>/">Posted</a> | 
+                <a href="/<%= user.username %>/Favorites">Favorites</a> 
+                
+                <hr>
 
-            <h2><%= sub_title %></h2>
-            <% if(cards.length === 0) { %>
-            <div> Aint got nothing to show ya</div>
-            <% } %>
-            
-            <% if(cards.length >  0) { %>
-            <ul class="clearfix cards">
-                <%  for (var i = 0; i < cards.length; i++) {    %>
-                <li>
-                    <div class="wrapper">
-                        <a href="/cards/<%= cards[i]._id %>">
-                            <div><img src="<%= cards[i].image %>" width="200px" height="150px"  /></div>
-                            <div><%= cards[i].title %></div>
-                        </a>
-                    </div>
-                </li>
+                <h2 class="pTitleHeader--title"><%= sub_title %></h2>
+                <% if(cards.length === 0) { %>
+                    <div> Aint got nothing to show ya</div>
+                <% } %>
+                
+                <% if(cards.length >  0) { %>
+                <ul class="clearfix cards">
+                    <%  for (var i = 0; i < cards.length; i++) {    %>
+                    <li>
+                        <div class="module_card">
+                            <a href="/cards/<%= cards[i]._id %>">
+                                <div><img src="<%= cards[i].image %>" width="200px" height="150px"  /></div>
+                                <div><%= cards[i].title %></div>
+                            </a>
+                        </div>
+                    </li>
+                    <%  }   %>
+                </ul>
                 <%  }   %>
-            </ul>
-            <%  }   %>
+            </section>
         </div>
     </div>
     <% include ../partials/footer %>
