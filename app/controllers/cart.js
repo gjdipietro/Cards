@@ -1,12 +1,12 @@
 'use strict';
 
 // Dependency
+var exports, require;
 var passport = require('../../config/auth');
 var crypto = require('crypto');
 var nodemailer = require('nodemailer');
 var secrets = require('../../config/secrets');
-var companyName = 'Greeting Cardinal';
-var tagline = 'Greeting Cards that don\'t suck';
+var numeral = require('numeral');
 
 // Models
 var Card = require('../models/cards');
@@ -20,16 +20,18 @@ exports.getUserCart = function (req, res) {
       if (currUser) {
         Card.find({_id : {$in : currUser.cart}}, function (err, cards) {
           if (!err) {
-            var totalPrice = 0;
+            var totalPrice = 0, indivPrice = [];
             for (var i = 0; i < cards.length; i++) {
               totalPrice += parseFloat(cards[i].attr.price);
+              indivPrice.push(numeral(cards[i].attr.price).format('$0,0.00'));
             }
             res.render('../views/pages/cart', {
-              docTitle: 'My Cart ' + companyName,
-              pageTitle: 'My Cart',
+              docTitle: 'Cart',
+              pageTitle: 'Cart',
               user: currUser,
+              indivPrice: indivPrice,
               cards: cards,
-              totalPrice: totalPrice,
+              totalPrice: numeral(totalPrice).format('$0,0.00')
             });
           } else {
             res.send(err);
@@ -90,4 +92,8 @@ exports.postDeleteFromCart = function (req, res) {
       }
     });
   });
+};
+
+exports.postCheckout = function (req, res) {
+  ;
 };

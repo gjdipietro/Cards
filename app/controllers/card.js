@@ -146,10 +146,10 @@ exports.getCard = function (req, res) {
           user: user,
           isMyCard: isMyCard,
           isFavorite: isFavorite
-        }); 
+        });
       } else {
         res.send(err);
-      }  
+      }
     });
   });
 };

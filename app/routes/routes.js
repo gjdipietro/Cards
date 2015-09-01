@@ -56,7 +56,8 @@ router.route('/:username/:card_id/favorite')
 CART
 =========================================*/
 router.route('/cart')
-    .get(cartController.getUserCart);
+    .get(cartController.getUserCart)
+    .post(cartController.postCheckout);
 
 router.route('/:username/:card_id/addToCart')
     .post(cartController.postAddToCart);
@@ -108,32 +109,19 @@ router.route('/auth/twitter/callback')
       res.redirect(req.session.returnTo || '/');
     });
 
+
 /*========================================
 INTERNAL
 =========================================*/
-router.route('/about')
-    .get(function (req, res) {
-      res.render('../views/pages/about', {
-        docTitle: 'About ' + companyName, 
-        pageTitle: 'About ' + companyName, 
-      });
-    });
+router.route('/about').get(getAbout);
 
-var Orders = require('../models/orders');
-router.route('/orders')
-    .get(function (req, res) {
-      Orders.find(function (err, orders) {
-        if (!err) {
-          res.render('../views/pages/orders_all', {
-            docTitle: 'Orders ' + companyName,
-            pageTitle: 'Orders ' + companyName,
-            orders: orders
-          }); 
-        } else {
-          res.send(err);
-        }
-      });
-    });
+
+function getAbout (req, res) {
+  res.render('../views/pages/about', {
+    docTitle: 'About ' + companyName,
+    pageTitle: 'About ' + companyName,
+  });
+}
 
 function cleanBody(req, res, next) {
   req.body = sanitize(req.body);

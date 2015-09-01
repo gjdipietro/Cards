@@ -17,7 +17,7 @@
                 <%  for (var i = 0; i < cards.length; i++) {    %>
                     <li>
                         <div class="clearfix">
-                            <div style="float:right"><%= cards[i].attr.price %></div>
+                            <div style="float:right"><%= indivPrice[i] %></div>
                             
                             <div style="float:left; margin:10px;">
                                 <img src="<%= cards[i].image %>" width="120px"/>
@@ -25,7 +25,6 @@
                             <div style="float:left; margin:10px; width: 200px;">
                                 <a href="/cards/<%= cards[i]._id %>"><%= cards[i].title %></a>
                                 <br>
-                                
                                 <form  method="post" action="/<%=auth_user.username %>/<%=cards[i]._id %>/deleteFromCart">
                                     <input type="submit" value="Remove"  />
                                 </form>
