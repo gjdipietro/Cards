@@ -16,7 +16,7 @@ var expressValidator = require('express-validator');
 
 var app = express();
 var port = process.env.PORT || 1337;
-var secrets = require('./config/secrets') || {db: process.env.MONGODB, sessionSecret: process.env.SESSION_SECRET};
+var secrets = {db: process.env.MONGODB, sessionSecret: process.env.SESSION_SECRET};
 var passport = require('./config/auth');
 
 // MongoDB Connect
