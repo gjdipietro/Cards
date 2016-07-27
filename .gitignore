@@ -2,10 +2,6 @@
 node_modules
 
 
-# Secret directory
-config
-
-
 #sass stuff
 .sass-cache
 *.css.map
