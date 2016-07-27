@@ -4,7 +4,6 @@
 var passport = require('../../config/auth');
 var crypto = require('crypto');
 var nodemailer = require('nodemailer');
-var secrets = require('../../config/secrets');
 var companyName = 'Greeting Cardinal';
 var tagline = 'Greeting Cards that don\'t suck';
 
