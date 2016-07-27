@@ -10,7 +10,7 @@ var bodyParser = require('body-parser');
 var multer  = require('multer');
 var path = require('path');
 var flash = require('express-flash');
-var cookieParser = require('cookie-parser')
+var cookieParser = require('cookie-parser');
 var mongoose = require('mongoose');
 var expressValidator = require('express-validator');
 
